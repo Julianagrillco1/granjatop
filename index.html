@@ -317,7 +317,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 <!-- ════ MERMAS ════ -->
 <div id="page-mermas" class="page">
   <div class="ptitle">Mermas</div>
-  <div class="psub">Registro de pérdida antes y después de tamizar</div>
+  <div class="psub">Pérdida en tamizado: peso seco − kg producto final</div>
   <div class="stats-row">
     <div class="scard"><div class="snum" id="m-total-kg" style="color:var(--danger)">—</div><div class="slbl">Total merma (kg)</div></div>
     <div class="scard"><div class="snum" id="m-total-pct" style="color:var(--warn)">—</div><div class="slbl">Merma media %</div></div>
@@ -326,7 +326,11 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div class="card">
     <div class="card-title">Registrar merma de tamizado</div>
     <div class="fgrid">
-      <div class="field"><label>Lote *</label><input id="me-lote" type="text" placeholder="Ej: L250325" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="field"><label>Lote *</label>
+        <select id="me-lote" onchange="mermaCargarLote()">
+          <option value="">Seleccionar lote...</option>
+        </select>
+      </div>
       <div class="field"><label>Responsable</label>
         <select id="me-resp">
           <option value="">— Sin especificar —</option>
@@ -335,17 +339,17 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
           <option>Zakarias</option>
         </select>
       </div>
-      <div class="field"><label>Peso antes de tamizar (kg) *</label><input id="me-antes" type="number" placeholder="0.00" step="0.01" oninput="calcMerma()"></div>
-      <div class="field"><label>Peso después de tamizar (kg) *</label><input id="me-despues" type="number" placeholder="0.00" step="0.01" oninput="calcMerma()"></div>
     </div>
-    <div id="me-preview" style="display:none;background:var(--paper3);border-radius:var(--rs);padding:12px;margin-bottom:10px;font-size:13px">
-      <span style="color:var(--ink3)">Merma calculada: </span>
-      <span id="me-kg" style="font-family:'Space Mono',monospace;font-weight:700;color:var(--danger)"></span>
-      <span style="color:var(--ink3);margin-left:8px">→ </span>
-      <span id="me-pct" style="font-family:'Space Mono',monospace;font-weight:700;color:var(--warn)"></span>
+    <!-- Info del lote cargada automáticamente -->
+    <div id="me-lote-info" style="display:none;background:var(--paper3);border-radius:var(--rs);padding:12px;margin-bottom:12px;font-size:13px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Peso seco (antes tamiz)</div><div id="me-info-antes" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--blue);margin-top:2px">—</div></div>
+        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Kg producto (después tamiz)</div><div id="me-info-despues" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--ok);margin-top:2px">—</div></div>
+        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Merma calculada</div><div id="me-info-merma" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--danger);margin-top:2px">—</div></div>
+      </div>
     </div>
     <div class="field"><label>Observaciones</label><input id="me-obs" type="text" placeholder="Notas adicionales..."></div>
-    <button class="btn btn-ok btn-full" onclick="registrarMerma()">+ Registrar merma</button>
+    <button class="btn btn-ok btn-full" id="me-btn" onclick="registrarMerma()" disabled>+ Registrar merma</button>
   </div>
   <div id="lista-mermas"><div class="loading"><div class="spinner"></div></div></div>
 </div>
@@ -678,18 +682,6 @@ function calcAvg(prefix,n){
   el.innerHTML=`Promedio: <b style="color:var(--ok)">${avg}%</b> (${vals.length} muestras)`;
 }
 
-function calcMerma(){
-  const antes=parseFloat(document.getElementById('me-antes').value)||0;
-  const despues=parseFloat(document.getElementById('me-despues').value)||0;
-  const prev=document.getElementById('me-preview');
-  if(!antes||!despues){prev.style.display='none';return;}
-  const mermaKg=(antes-despues).toFixed(2);
-  const mermaPct=(antes>0?((antes-despues)/antes*100).toFixed(1):'0');
-  document.getElementById('me-kg').textContent=mermaKg+' kg';
-  document.getElementById('me-pct').textContent=mermaPct+'%';
-  prev.style.display='block';
-}
-
 function calcKg(){
   const s=parseFloat(document.getElementById('pi-sacos-inp').value)||0;
   document.getElementById('pi-kg-inp').value=(s*KG_SACO).toFixed(1);
@@ -956,21 +948,57 @@ async function confirmarSeco(){
 // ════════════════════════════════════════════
 // MERMAS
 // ════════════════════════════════════════════
+function actualizarSelectorMermas(){
+  const sel=document.getElementById('me-lote');
+  if(!sel)return;
+  const cur=sel.value;
+  // Solo lotes que tienen peso_seco_kg y kg_producto en trazabilidad_lote
+  const lotesValidos=trazLote.filter(l=>l.peso_seco_kg!=null&&l.kg_producto!=null);
+  sel.innerHTML='<option value="">Seleccionar lote...</option>'+
+    lotesValidos.map(l=>{
+      const mermaKg=(parseFloat(l.peso_seco_kg)-parseFloat(l.kg_producto)).toFixed(2);
+      return`<option value="${l.lote}" ${l.lote===cur?'selected':''}>${l.lote} — Seco: ${l.peso_seco_kg}kg / Prod: ${l.kg_producto}kg / Merma: ${mermaKg}kg</option>`;
+    }).join('');
+  if(cur)mermaCargarLote();
+}
+
+function mermaCargarLote(){
+  const lote=document.getElementById('me-lote').value;
+  const info=document.getElementById('me-lote-info');
+  const btn=document.getElementById('me-btn');
+  if(!lote){info.style.display='none';btn.disabled=true;return;}
+  const tl=trazLote.find(l=>l.lote===lote);
+  if(!tl){info.style.display='none';btn.disabled=true;return;}
+  const antes=parseFloat(tl.peso_seco_kg)||0;
+  const despues=parseFloat(tl.kg_producto)||0;
+  const mermaKg=(antes-despues).toFixed(2);
+  const mermaPct=antes>0?((antes-despues)/antes*100).toFixed(1):'0';
+  document.getElementById('me-info-antes').textContent=antes.toFixed(2)+' kg';
+  document.getElementById('me-info-despues').textContent=despues.toFixed(2)+' kg';
+  document.getElementById('me-info-merma').textContent=mermaKg+' kg ('+mermaPct+'%)';
+  info.style.display='block';
+  btn.disabled=false;
+}
+
 async function registrarMerma(){
-  const lote=document.getElementById('me-lote').value.trim().toUpperCase();
-  const antes=parseFloat(document.getElementById('me-antes').value);
-  const despues=parseFloat(document.getElementById('me-despues').value);
+  const lote=document.getElementById('me-lote').value;
   const resp=document.getElementById('me-resp').value;
   const obs=document.getElementById('me-obs').value.trim()||null;
-  if(!lote||isNaN(antes)||isNaN(despues)){showToast('⚠ Lote, peso antes y peso después son obligatorios');return;}
-  if(despues>antes){showToast('⚠ El peso después no puede ser mayor que el peso antes');return;}
+  if(!lote){showToast('⚠ Selecciona un lote');return;}
+  const tl=trazLote.find(l=>l.lote===lote);
+  if(!tl){showToast('⚠ Lote no encontrado');return;}
+  const antes=parseFloat(tl.peso_seco_kg)||0;
+  const despues=parseFloat(tl.kg_producto)||0;
+  if(antes<=0){showToast('⚠ El lote no tiene peso seco registrado');return;}
   setSyncing(true);
   try{
     await sbPost('/rest/v1/mermas',{lote,peso_antes_kg:antes,peso_despues_kg:despues,responsable:resp||null,observaciones:obs});
-    ['me-lote','me-antes','me-despues','me-obs'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('me-preview').style.display='none';
+    document.getElementById('me-lote').value='';
+    document.getElementById('me-obs').value='';
+    document.getElementById('me-lote-info').style.display='none';
+    document.getElementById('me-btn').disabled=true;
     await loadAll();renderAll();
-    showToast(`✓ Merma registrada para lote ${lote}`);
+    showToast(`✓ Merma registrada: ${(antes-despues).toFixed(2)} kg en lote ${lote}`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
@@ -1319,6 +1347,7 @@ function renderAll(){
   _renderTemps(window._temps||[]);
   updateBadges();
   actualizarSelectorSeco();
+  actualizarSelectorMermas();
 }
 
 // ════════════════════════════════════════════
