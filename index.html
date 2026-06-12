@@ -438,6 +438,14 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
           <option>Venta</option><option>Consumo interno</option><option>Merma</option><option>Otro</option>
         </select>
       </div>
+      <div class="field"><label>Responsable</label>
+        <select id="vt-resp">
+          <option value="">— Sin especificar —</option>
+          <option>Begoña</option><option>Damia</option><option>Marina</option>
+          <option>Rodrigo</option><option>Zakarias</option>
+          <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
+        </select>
+      </div>
     </div>
     <div class="field"><label>Observaciones</label><input id="vt-obs" type="text" placeholder="Cliente, destino..."></div>
     <button class="btn btn-ok btn-full" onclick="registrarVenta()">+ Registrar salida</button>
@@ -1167,6 +1175,7 @@ async function registrarVenta(){
   const cantidad=parseFloat(document.getElementById('vt-cantidad').value)||0;
   const fecha=document.getElementById('vt-fecha').value;
   const motivo=document.getElementById('vt-motivo').value;
+  const resp=document.getElementById('vt-resp').value;
   const obs=document.getElementById('vt-obs').value.trim()||null;
   if(!lote||!cantidad||!fecha){showToast('⚠ Completa lote, cantidad y fecha');return;}
   const lotes=buildLotesStock();
@@ -1175,7 +1184,7 @@ async function registrarVenta(){
   if(cantidad>stock){showToast(`⚠ Sin stock. Disponible: ${stock.toFixed(1)} kg`);return;}
   setSyncing(true);
   try{
-    await sbPost('/rest/v1/ventas',{lote,cantidad_kg:cantidad,fecha,motivo,observaciones:obs});
+    await sbPost('/rest/v1/ventas',{lote,cantidad_kg:cantidad,fecha,motivo,responsable:resp||null,observaciones:obs});
     document.getElementById('vt-cantidad').value='';
     document.getElementById('vt-obs').value='';
     await loadAll();renderAll();
@@ -1214,7 +1223,7 @@ function renderLotes(){
         <div><div style="color:var(--ink3)">Salidas</div><div style="font-weight:600;color:var(--warn)">${l.vendido.toFixed(1)} kg</div></div>
         <div><div style="color:var(--ink3)">Stock</div><div style="font-weight:600;color:${s<=0?'var(--ink3)':'var(--ok)'}">${s.toFixed(1)} kg</div></div>
       </div>
-      ${vL.length?`<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px">${vL.map(v=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--line)"><span style="color:var(--ink3)">${v.motivo} · ${fmtDate(v.fecha)}${v.observaciones?' · '+v.observaciones:''}</span><span style="color:var(--warn);font-weight:600">-${v.cantidad_kg.toFixed(1)} kg</span></div>`).join('')}</div>`:''}
+      ${vL.length?`<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px">${vL.map(v=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--line)"><span style="color:var(--ink3)">${v.motivo} · ${fmtDate(v.fecha)}${v.responsable?' · '+v.responsable:''}${v.observaciones?' · '+v.observaciones:''}</span><span style="color:var(--warn);font-weight:600">-${v.cantidad_kg.toFixed(1)} kg</span></div>`).join('')}</div>`:''}
     </div>`;
   }).join('');
 }
