@@ -180,6 +180,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <button class="nbtn" onclick="goPage('sustratos',this)">🌿 Sustratos <span class="nbadge-w" id="nbadge-sust" style="display:none">0</span></button>
   <button class="nbtn" onclick="goPage('mermas',this)">⚖️ Mermas</button>
   <button class="nbtn" onclick="goPage('pienso',this)">🌾 Pienso</button>
+  <button class="nbtn" onclick="goPage('pienso',this)">🌾 Pienso</button>
+  <button class="nbtn" onclick="goPage('trazpienso',this)">🌾 Traz. Pienso</button>
   <button class="nbtn" onclick="goPage('hueveras',this)">🥚 Hueveras</button>
   <button class="nbtn" onclick="goPage('trazabilidad',this)">📋 Trazabilidad</button>
   <button class="nbtn" onclick="goPage('lotes',this)">📦 Lotes</button>
@@ -486,6 +488,20 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
     <button class="btn btn-ok btn-full" onclick="registrarTemp()">+ Guardar medición</button>
   </div>
   <div id="lista-temps"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- ════ TRAZABILIDAD PIENSO ════ -->
+<div id="page-trazpienso" class="page">
+  <div class="ptitle">Trazabilidad de Pienso</div>
+  <div class="psub">Qué cajas comieron cada lote de pienso del proveedor</div>
+  <div class="card" style="padding:12px 14px">
+    <div class="fgrid">
+      <div class="field"><label>Filtrar por lote</label><select id="tp-filtro-lote" onchange="renderTrazPienso()"><option value="">— Todos los lotes —</option></select></div>
+      <div class="field"><label>Buscar por fecha</label><input type="date" id="tp-filtro-fecha" onchange="renderTrazPienso()"></div>
+    </div>
+    <div style="font-size:11px;color:var(--ink3);margin-top:4px">Las cajas dejan de comer <b>2 días antes del sacrificio</b>.</div>
+  </div>
+  <div id="lista-trazpienso"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
 </div><!-- /app -->
@@ -939,8 +955,9 @@ async function confirmarSeco(){
     if(r.error){showToast('⚠ '+r.error);return;}
     ['os-peso','os-kg','os-obs','os-h1','os-h2','os-h3','os-h4','os-h5'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     document.getElementById('os-avg').textContent='Promedio: — %';
+    if(peso&&kg&&peso>0){try{await sbPost('/rest/v1/mermas',{lote,peso_antes_kg:peso,peso_despues_kg:kg,responsable:'Rodrigo',observaciones:'Automático al procesar seco'});}catch(_){}}
     await loadAll();renderAll();
-    showToast(`✓ Lote ${lote} procesado en seco`);
+    showToast(`✓ Lote ${lote} procesado en seco — merma registrada automáticamente`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
@@ -1348,6 +1365,70 @@ function renderAll(){
   updateBadges();
   actualizarSelectorSeco();
   actualizarSelectorMermas();
+  renderTrazPienso();
+}
+
+
+// ════════════════════════════════════════════
+// TRAZABILIDAD PIENSO
+// ════════════════════════════════════════════
+const DIAS_SIN_COMIDA = 2;
+
+function buildPeriodosPienso(){
+  return [...pienso]
+    .filter(r=>r.tipo==='entrada'&&r.lote_proveedor)
+    .sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))
+    .map((e,i,arr)=>({
+      lote:e.lote_proveedor, sacos:e.sacos||0, cantidad:e.cantidad_kg||0,
+      fechaInicio:e.fecha, fechaFin:i<arr.length-1?arr[i+1].fecha:null,
+      responsable:e.responsable||'', obs:e.observaciones||''
+    }));
+}
+
+function ultimoDiaComiendo(fechaRef){
+  const d=new Date(fechaRef);d.setDate(d.getDate()-DIAS_SIN_COMIDA);
+  return d.toISOString().split('T')[0];
+}
+
+function cajaConsumePienso(fi,fc,pIni,pFin,fs){
+  if(!fi||!fc)return false;
+  const ref=fs||fc;
+  const ult=ultimoDiaComiendo(ref);
+  if(ult<fi)return false;
+  const fin=pFin||'9999-12-31';
+  return fi<=fin&&pIni<=ult;
+}
+
+function renderTrazPienso(){
+  const lista=document.getElementById('lista-trazpienso');
+  if(!lista)return;
+  const periodos=buildPeriodosPienso();
+  const selLote=document.getElementById('tp-filtro-lote');
+  const inpFecha=document.getElementById('tp-filtro-fecha');
+  if(selLote){
+    const cur=selLote.value;
+    const lotes=[...new Set(periodos.map(p=>p.lote))];
+    selLote.innerHTML='<option value="">— Todos los lotes —</option>'+lotes.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');
+  }
+  if(!periodos.length){lista.innerHTML='<div class="empty">🌾 No hay entradas de pienso con lote registradas</div>';return;}
+  const filtroLote=selLote?selLote.value:'';
+  const filtroFecha=inpFecha?inpFecha.value:'';
+  let visibles=[...periodos];
+  if(filtroLote)visibles=visibles.filter(p=>p.lote===filtroLote);
+  if(filtroFecha)visibles=visibles.filter(p=>p.fechaInicio<=filtroFecha&&(!p.fechaFin||filtroFecha<p.fechaFin));
+  visibles=visibles.reverse();
+  if(!visibles.length){lista.innerHTML='<div class="empty">🔍 Sin resultados</div>';return;}
+  const hoy=new Date().toISOString().split('T')[0];
+  lista.innerHTML=visibles.map(p=>{
+    const cajasAct=cajas.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin));
+    const cajasPro=trazCaja.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin,c.fecha_sacrificio));
+    const total=cajasAct.length+cajasPro.length;
+    const isActivo=!p.fechaFin;
+    const dur=Math.round(((p.fechaFin?new Date(p.fechaFin):new Date(hoy))-new Date(p.fechaInicio))/86400000);
+    const actHTML=cajasAct.length?'<div style="font-size:10px;color:var(--ink3);margin-bottom:4px;text-transform:uppercase">Cajas activas</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">'+cajasAct.map(c=>'<span class="badge b-ok" style="font-size:11px">'+c.codigo+'</span>').join('')+'</div>':'';
+    const proHTML=cajasPro.length?'<div style="font-size:10px;color:var(--ink3);margin-bottom:4px;text-transform:uppercase">Cajas procesadas</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+cajasPro.map(c=>'<span class="badge b-gray" style="font-size:11px">'+c.caja_codigo+(c.lote?' → '+c.lote:'')+'</span>').join('')+'</div>':'';
+    return '<div class="trow"><div class="trow-head"><span class="code" style="color:var(--amber)">'+p.lote+'</span>'+(isActivo?'<span class="badge b-ok">ACTIVO</span>':'<span class="badge b-gray">finalizado</span>')+'<span class="badge b-blue">'+p.sacos+' sacos · '+p.cantidad.toFixed(1)+' kg</span><span style="margin-left:auto;font-size:11px;color:var(--ink3)">'+fmtDate(p.fechaInicio)+' → '+(p.fechaFin?fmtDate(p.fechaFin):'hoy')+'</span></div><div class="trow-grid" style="grid-template-columns:repeat(4,1fr)">'+tf('Duración',dur+' días')+tf('Total cajas',total)+tf('Activas',cajasAct.length)+tf('Procesadas',cajasPro.length)+'</div>'+(total>0?'<div style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">'+actHTML+proHTML+'</div>':'<div style="font-size:11px;color:var(--ink3);font-style:italic;margin-top:6px">Sin cajas en este periodo</div>')+'</div>';
+  }).join('');
 }
 
 // ════════════════════════════════════════════
