@@ -8,7 +8,7 @@
 <style>
 :root{
   --ink:#1a1f14;--ink2:#3d4a35;--ink3:#7a8a70;
-  --paper:#f2f5ec;--paper2:#e8edd e;--paper3:#dde4d0;--paper4:#cfd9be;
+  --paper:#f2f5ec;--paper2:#e8ede0;--paper3:#dde4d0;--paper4:#cfd9be;
   --line:rgba(30,50,20,0.10);--line2:rgba(30,50,20,0.22);
   --ok:#2e6b3e;--ok-bg:rgba(46,107,62,0.13);
   --warn:#7a5a00;--warn-bg:rgba(122,90,0,0.13);
@@ -16,12 +16,12 @@
   --accent:#4a7c3f;--accent2:#6aaa5a;
   --blue:#3a6b8a;--blue-bg:rgba(58,107,138,0.13);
   --amber:#8a6a00;--amber-bg:rgba(138,106,0,0.13);
+  --orange:#c98742;--orange-bg:rgba(201,135,66,0.18);
   --r:10px;--rs:7px
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
 
-/* ── TOPBAR ── */
 .topbar{position:sticky;top:0;z-index:200;background:var(--ink);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:10px}
 .logo{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--paper);letter-spacing:-0.5px;white-space:nowrap}
 .logo span{color:var(--accent2)}
@@ -33,7 +33,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .logout-btn{background:rgba(255,255,255,0.08);color:rgba(242,245,236,0.6);border:none;border-radius:var(--rs);padding:5px 10px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.15s}
 .logout-btn:hover{background:rgba(255,255,255,0.15);color:var(--paper)}
 
-/* ── NAV ── */
 .nav{position:sticky;top:52px;z-index:100;background:var(--paper2);border-bottom:1px solid var(--line);display:flex;gap:4px;padding:8px 12px;overflow-x:auto}
 .nav::-webkit-scrollbar{display:none}
 .nbtn{flex-shrink:0;padding:7px 14px;border-radius:20px;border:1px solid transparent;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;color:var(--ink3);background:transparent;display:flex;align-items:center;gap:5px;white-space:nowrap}
@@ -42,13 +41,11 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .nbadge{background:var(--danger);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;font-weight:700}
 .nbadge-w{background:var(--warn);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;font-weight:700}
 
-/* ── PAGES ── */
 .page{display:none;max-width:700px;margin:0 auto;padding:14px}
 .page.on{display:block}
 .ptitle{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;margin-bottom:3px}
 .psub{font-size:13px;color:var(--ink3);margin-bottom:16px}
 
-/* ── CARDS ── */
 .card{background:var(--paper2);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:12px}
 .card-title{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
@@ -56,7 +53,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .snum{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1}
 .slbl{font-size:10px;color:var(--ink3);margin-top:3px;text-transform:uppercase;letter-spacing:0.5px}
 
-/* ── FORMS ── */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .field{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
 .field label{font-size:12px;color:var(--ink2);font-weight:600}
@@ -67,7 +63,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .hgrid input{text-align:center;font-family:'Space Mono',monospace;font-size:13px}
 .havg{font-size:12px;color:var(--ink3);margin-top:6px}
 
-/* ── BUTTONS ── */
 .btn{padding:10px 18px;border-radius:var(--rs);border:none;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .btn-full{width:100%;margin-top:6px}
 .btn-ok{background:var(--ok);color:#fff}.btn-ok:hover{background:#266035;transform:translateY(-1px)}
@@ -75,7 +70,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .btn-danger{background:var(--danger-bg);color:var(--danger);border:1px solid rgba(138,46,46,0.25)}
 .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important}
 
-/* ── ROWS / LISTS ── */
 .row{background:var(--paper2);border:1px solid var(--line);border-radius:var(--rs);padding:12px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color 0.15s}
 .row:hover{border-color:var(--line2)}
 .row.crit{border-left:3px solid var(--danger)}
@@ -89,35 +83,32 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .b-blue{background:var(--blue-bg);color:var(--blue)}
 .b-gray{background:var(--paper3);color:var(--ink3)}
 .b-amber{background:var(--amber-bg);color:var(--amber)}
+.b-orange{background:var(--orange-bg);color:var(--orange)}
 .slabel{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);padding:4px 2px 8px;display:flex;align-items:center;gap:8px}
 .slabel::after{content:'';flex:1;height:1px;background:var(--line)}
 
-/* ── TRAZ ROWS ── */
 .trow{background:var(--paper2);border:1px solid var(--line);border-radius:var(--rs);padding:14px;margin-bottom:8px}
 .trow-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .trow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .tfield{font-size:11px}.tfield-lbl{color:var(--ink3)}.tfield-val{color:var(--ink);font-weight:500;margin-top:1px}
 
-/* ── AVISO BARS ── */
 .abar{border-radius:var(--rs);padding:11px 14px;margin-bottom:8px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px;border-left:3px solid}
 .abar-d{background:var(--danger-bg);border-color:var(--danger);color:var(--danger)}
 .abar-w{background:var(--warn-bg);border-color:var(--warn);color:var(--warn)}
 .abar-b{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
 .abar-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.abar-or{background:var(--orange-bg);border-color:var(--orange);color:var(--orange)}
 
-/* ── SUSTRATO GRID ── */
 .sust-grid{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
 .sday{width:36px;height:36px;border-radius:var(--rs);border:1.5px solid var(--line2);background:var(--paper3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--ink3);transition:all 0.15s;user-select:none}
 .sday:hover{border-color:var(--ok);color:var(--ok)}
 .sday.done{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
 
-/* ── TAB ROW ── */
 .tab-row{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .tbtn{padding:6px 14px;border-radius:20px;border:1px solid var(--line2);background:transparent;color:var(--ink3);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s}
 .tbtn.on{background:var(--ok-bg);color:var(--ok);border-color:rgba(46,107,62,0.3)}
 .tab-content{display:none}.tab-content.on{display:block}
 
-/* ── MODAL ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;align-items:center;justify-content:center;padding:16px}
 .overlay.show{display:flex}
 .modal{background:var(--paper2);border:1px solid var(--line2);border-radius:var(--r);padding:22px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
@@ -125,14 +116,11 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 .modal-sub{font-size:12px;color:var(--ink3);margin-bottom:16px}
 .modal-actions{display:flex;gap:8px;margin-top:16px}
 
-/* ── AUTH ── */
 #auth-screen{position:fixed;inset:0;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:40px;text-align:center}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:10px 22px;border-radius:30px;font-size:13px;font-weight:500;z-index:999;transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;border:1px solid rgba(255,255,255,0.08)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);padding:10px 22px;border-radius:30px;font-size:13px;font-weight:500;z-index:999;transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;border:1px solid rgba(255,255,255,0.08);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{transform:translateX(-50%) translateY(0)}
 
-/* ── MISC ── */
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;gap:10px;color:var(--ink3)}
 .spinner{width:24px;height:24px;border:2px solid var(--line2);border-top-color:var(--ink2);border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -149,7 +137,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 </head>
 <body>
 
-<!-- ── AUTH SCREEN ── -->
 <div id="auth-screen">
   <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--paper);letter-spacing:-1.5px;margin-bottom:6px">granja<span style="color:var(--accent2)">top</span></div>
   <div style="font-size:12px;color:rgba(242,245,236,0.4);margin-bottom:40px;letter-spacing:1.5px;text-transform:uppercase">Sistema de trazabilidad</div>
@@ -161,7 +148,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div style="margin-top:20px;font-size:11px;color:rgba(242,245,236,0.25)">Solo cuentas @grillco.cat</div>
 </div>
 
-<!-- ── APP ── -->
 <div id="app" style="display:none">
 
 <div class="topbar">
@@ -173,17 +159,16 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   </div>
 </div>
 
-<div class="nav" id="nav">
+<div class="nav">
   <button class="nbtn on" onclick="goPage('nacimiento',this)">🥚 Nacimiento</button>
   <button class="nbtn" onclick="goPage('obrador',this)">🏭 Obrador</button>
   <button class="nbtn" onclick="goPage('avisos',this)">⏰ Avisos <span class="nbadge" id="nbadge-avisos" style="display:none">0</span></button>
   <button class="nbtn" onclick="goPage('sustratos',this)">🌿 Sustratos <span class="nbadge-w" id="nbadge-sust" style="display:none">0</span></button>
-  <button class="nbtn" onclick="goPage('mermas',this)">⚖️ Mermas</button>
-  <button class="nbtn" onclick="goPage('pienso',this)">🌾 Pienso</button>
-  <button class="nbtn" onclick="goPage('pienso',this)">🌾 Pienso</button>
-  <button class="nbtn" onclick="goPage('trazpienso',this)">🌾 Traz. Pienso</button>
-  <button class="nbtn" onclick="goPage('hueveras',this)">🥚 Hueveras</button>
   <button class="nbtn" onclick="goPage('trazabilidad',this)">📋 Trazabilidad</button>
+  <button class="nbtn" onclick="goPage('pienso',this)">🌾 Pienso</button>
+  <button class="nbtn" onclick="goPage('trazpienso',this)">🔗 Traz. Pienso</button>
+  <button class="nbtn" onclick="goPage('hueveras',this)">🥚 Hueveras</button>
+  <button class="nbtn" onclick="goPage('mermas',this)">⚖️ Mermas</button>
   <button class="nbtn" onclick="goPage('lotes',this)">📦 Lotes</button>
   <button class="nbtn" onclick="goPage('temperaturas',this)">🌡️ Temperaturas</button>
 </div>
@@ -214,8 +199,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
         <select id="n-resp">
           <option value="">— Sin especificar —</option>
           <option>Begoña</option><option>Damia</option><option>Marina</option>
-          <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-          <option>Zakarias</option>
+          <option>Rodrigo</option><option>Zakarias</option>
+          <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
         </select>
       </div>
     </div>
@@ -233,12 +218,11 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
     <button class="tbtn" onclick="obrTab('seco',this)">Seco (por lote)</button>
   </div>
 
-  <!-- HÚMEDO -->
   <div id="obr-humedo" class="tab-content on">
     <div class="card">
       <div class="card-title">Identificar caja</div>
       <div class="fgrid">
-        <div class="field"><label>Código de caja *</label><input id="oh-codigo" type="text" placeholder="Ej: A2A" oninput="this.value=this.value.toUpperCase()" onblur="buscarCaja()"></div>
+        <div class="field"><label>Código de caja *</label><input id="oh-codigo" type="text" placeholder="Ej: A2A" oninput="this.value=this.value.toUpperCase();buscarCaja()"></div>
         <div class="field"><label>Estado</label><div id="oh-estado" style="padding:9px 11px;background:var(--paper3);border-radius:var(--rs);font-size:13px;color:var(--ink3)">— Escribe el código</div></div>
       </div>
     </div>
@@ -252,8 +236,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
           <select id="oh-resp">
             <option value="">— Sin especificar —</option>
             <option>Begoña</option><option>Damia</option><option>Marina</option>
-            <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-            <option>Zakarias</option>
+            <option>Rodrigo</option><option>Zakarias</option>
+            <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
           </select>
         </div>
       </div>
@@ -270,20 +254,19 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
     </div>
   </div>
 
-  <!-- SECO -->
   <div id="obr-seco" class="tab-content">
     <div class="card">
       <div class="card-title">Proceso seco — por lote</div>
       <div class="fgrid">
         <div class="field"><label>Lote *</label><select id="os-lote"><option value="">Seleccionar lote húmedo...</option></select></div>
-        <div class="field"><label>Peso seco (kg)</label><input id="os-peso" type="number" placeholder="0.00" step="0.01"></div>
-        <div class="field"><label>Kg de producto</label><input id="os-kg" type="number" placeholder="0.00" step="0.01"></div>
+        <div class="field"><label>Peso seco (kg) — antes de tamiz</label><input id="os-peso" type="number" placeholder="0.00" step="0.01"></div>
+        <div class="field"><label>Kg producto — después de tamiz</label><input id="os-kg" type="number" placeholder="0.00" step="0.01"></div>
         <div class="field"><label>Responsable</label>
           <select id="os-resp">
             <option value="">— Sin especificar —</option>
             <option>Begoña</option><option>Damia</option><option>Marina</option>
-            <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-            <option>Zakarias</option>
+            <option>Rodrigo</option><option>Zakarias</option>
+            <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
           </select>
         </div>
       </div>
@@ -297,7 +280,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
       </div>
       <div class="havg" id="os-avg">Promedio: — %</div>
       <div class="field" style="margin-top:10px"><label>Observaciones</label><textarea id="os-obs" placeholder="Notas adicionales..."></textarea></div>
-      <button class="btn btn-ok btn-full" onclick="confirmarSeco()">✓ Confirmar proceso seco → Trazabilidad</button>
+      <button class="btn btn-ok btn-full" onclick="confirmarSeco()">✓ Confirmar proceso seco → Trazabilidad + Merma</button>
     </div>
   </div>
 </div>
@@ -316,44 +299,20 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div id="lista-sustratos"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
-<!-- ════ MERMAS ════ -->
-<div id="page-mermas" class="page">
-  <div class="ptitle">Mermas</div>
-  <div class="psub">Pérdida en tamizado: peso seco − kg producto final</div>
-  <div class="stats-row">
-    <div class="scard"><div class="snum" id="m-total-kg" style="color:var(--danger)">—</div><div class="slbl">Total merma (kg)</div></div>
-    <div class="scard"><div class="snum" id="m-total-pct" style="color:var(--warn)">—</div><div class="slbl">Merma media %</div></div>
-    <div class="scard"><div class="snum" id="m-registros" style="color:var(--blue)">—</div><div class="slbl">Registros</div></div>
+<!-- ════ TRAZABILIDAD ════ -->
+<div id="page-trazabilidad" class="page">
+  <div class="ptitle">Trazabilidad</div>
+  <div class="psub">Registros por caja y por lote</div>
+  <div class="tab-row">
+    <button class="tbtn on" onclick="trazTab('caja',this)">Por caja (húmedo)</button>
+    <button class="tbtn" onclick="trazTab('lote',this)">Por lote (seco)</button>
   </div>
-  <div class="card">
-    <div class="card-title">Registrar merma de tamizado</div>
-    <div class="fgrid">
-      <div class="field"><label>Lote *</label>
-        <select id="me-lote" onchange="mermaCargarLote()">
-          <option value="">Seleccionar lote...</option>
-        </select>
-      </div>
-      <div class="field"><label>Responsable</label>
-        <select id="me-resp">
-          <option value="">— Sin especificar —</option>
-          <option>Begoña</option><option>Damia</option><option>Marina</option>
-          <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-          <option>Zakarias</option>
-        </select>
-      </div>
-    </div>
-    <!-- Info del lote cargada automáticamente -->
-    <div id="me-lote-info" style="display:none;background:var(--paper3);border-radius:var(--rs);padding:12px;margin-bottom:12px;font-size:13px">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
-        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Peso seco (antes tamiz)</div><div id="me-info-antes" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--blue);margin-top:2px">—</div></div>
-        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Kg producto (después tamiz)</div><div id="me-info-despues" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--ok);margin-top:2px">—</div></div>
-        <div><div style="font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.5px">Merma calculada</div><div id="me-info-merma" style="font-family:'Space Mono',monospace;font-weight:700;font-size:16px;color:var(--danger);margin-top:2px">—</div></div>
-      </div>
-    </div>
-    <div class="field"><label>Observaciones</label><input id="me-obs" type="text" placeholder="Notas adicionales..."></div>
-    <button class="btn btn-ok btn-full" id="me-btn" onclick="registrarMerma()" disabled>+ Registrar merma</button>
+  <div id="traz-caja" class="tab-content on">
+    <div id="lista-traz-caja"><div class="loading"><div class="spinner"></div></div></div>
   </div>
-  <div id="lista-mermas"><div class="loading"><div class="spinner"></div></div></div>
+  <div id="traz-lote" class="tab-content">
+    <div id="lista-traz-lote"><div class="loading"><div class="spinner"></div></div></div>
+  </div>
 </div>
 
 <!-- ════ PIENSO ════ -->
@@ -381,8 +340,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
         <select id="pi-resp">
           <option value="">— Sin especificar —</option>
           <option>Begoña</option><option>Damia</option><option>Marina</option>
-          <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-          <option>Zakarias</option>
+          <option>Rodrigo</option><option>Zakarias</option>
+          <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
         </select>
       </div>
       <div class="field"><label>Lote proveedor <span style="font-weight:400;color:var(--ink3)">(solo entradas)</span></label><input id="pi-lote" type="text" placeholder="Ej: L203647" oninput="this.value=this.value.toUpperCase()"></div>
@@ -393,10 +352,30 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div id="lista-pienso"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
+<!-- ════ TRAZABILIDAD PIENSO ════ -->
+<div id="page-trazpienso" class="page">
+  <div class="ptitle">Trazabilidad de Pienso</div>
+  <div class="psub">Cruzado por fecha: qué cajas comieron cada lote (2 días antes del sacrificio dejan de comer)</div>
+  <div class="card" style="padding:12px 14px">
+    <div class="fgrid">
+      <div class="field"><label>Filtrar por lote</label>
+        <select id="tp-filtro-lote" onchange="renderTrazPienso()">
+          <option value="">— Todos los lotes —</option>
+        </select>
+      </div>
+      <div class="field"><label>Buscar por fecha</label>
+        <input type="date" id="tp-filtro-fecha" onchange="renderTrazPienso()">
+      </div>
+    </div>
+    <div style="font-size:11px;color:var(--ink3);margin-top:4px">Si la caja tiene fecha de sacrificio real registrada en Obrador húmedo, se usa esa; si no, la fecha estimada de colecta.</div>
+  </div>
+  <div id="lista-trazpienso"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
 <!-- ════ HUEVERAS ════ -->
 <div id="page-hueveras" class="page">
   <div class="ptitle">Hueveras</div>
-  <div class="psub">Control de stock de hueveras</div>
+  <div class="psub">Control de stock</div>
   <div class="stats-row">
     <div class="scard"><div class="snum" id="hv-stock" style="color:var(--ok)">—</div><div class="slbl">Stock actual</div></div>
     <div class="scard"><div class="snum" id="hv-entradas" style="color:var(--blue)">—</div><div class="slbl">Total entradas</div></div>
@@ -417,8 +396,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
         <select id="hv-resp">
           <option value="">— Sin especificar —</option>
           <option>Begoña</option><option>Damia</option><option>Marina</option>
-          <option>Mohammed</option><option>Napoleon</option><option>Rodrigo</option>
-          <option>Zakarias</option>
+          <option>Rodrigo</option><option>Zakarias</option>
+          <option>Usuario 1</option><option>Usuario 2</option><option>Usuario 3</option>
         </select>
       </div>
     </div>
@@ -428,20 +407,16 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div id="lista-hueveras"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
-<!-- ════ TRAZABILIDAD ════ -->
-<div id="page-trazabilidad" class="page">
-  <div class="ptitle">Trazabilidad</div>
-  <div class="psub">Registros por caja y por lote</div>
-  <div class="tab-row">
-    <button class="tbtn on" onclick="trazTab('caja',this)">Por caja (húmedo)</button>
-    <button class="tbtn" onclick="trazTab('lote',this)">Por lote (seco)</button>
+<!-- ════ MERMAS (DASHBOARD AUTOMÁTICO) ════ -->
+<div id="page-mermas" class="page">
+  <div class="ptitle">Mermas</div>
+  <div class="psub">Pérdida en tamizado · se calcula automático al procesar el seco</div>
+  <div class="stats-row">
+    <div class="scard"><div class="snum" id="m-total-kg" style="color:var(--danger)">—</div><div class="slbl">Total merma (kg)</div></div>
+    <div class="scard"><div class="snum" id="m-total-pct" style="color:var(--warn)">—</div><div class="slbl">Merma media %</div></div>
+    <div class="scard"><div class="snum" id="m-registros" style="color:var(--blue)">—</div><div class="slbl">Lotes con merma</div></div>
   </div>
-  <div id="traz-caja" class="tab-content on">
-    <div id="lista-traz-caja"><div class="loading"><div class="spinner"></div></div></div>
-  </div>
-  <div id="traz-lote" class="tab-content">
-    <div id="lista-traz-lote"><div class="loading"><div class="spinner"></div></div></div>
-  </div>
+  <div id="lista-mermas"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
 <!-- ════ LOTES ════ -->
@@ -490,23 +465,8 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
   <div id="lista-temps"><div class="loading"><div class="spinner"></div></div></div>
 </div>
 
-<!-- ════ TRAZABILIDAD PIENSO ════ -->
-<div id="page-trazpienso" class="page">
-  <div class="ptitle">Trazabilidad de Pienso</div>
-  <div class="psub">Qué cajas comieron cada lote de pienso del proveedor</div>
-  <div class="card" style="padding:12px 14px">
-    <div class="fgrid">
-      <div class="field"><label>Filtrar por lote</label><select id="tp-filtro-lote" onchange="renderTrazPienso()"><option value="">— Todos los lotes —</option></select></div>
-      <div class="field"><label>Buscar por fecha</label><input type="date" id="tp-filtro-fecha" onchange="renderTrazPienso()"></div>
-    </div>
-    <div style="font-size:11px;color:var(--ink3);margin-top:4px">Las cajas dejan de comer <b>2 días antes del sacrificio</b>.</div>
-  </div>
-  <div id="lista-trazpienso"><div class="loading"><div class="spinner"></div></div></div>
-</div>
-
 </div><!-- /app -->
 
-<!-- MODAL DETALLE CAJA -->
 <div class="overlay" id="modal-caja" onclick="if(event.target===this)closeModal('modal-caja')">
   <div class="modal">
     <div class="modal-title" id="mc-title">Caja</div>
@@ -514,7 +474,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
     <div id="mc-body"></div>
     <div class="modal-actions">
       <button class="btn btn-cancel" style="flex:1" onclick="closeModal('modal-caja')">Cerrar</button>
-      <button class="btn btn-danger" style="flex:1" id="mc-del" onclick="eliminarCaja()">Eliminar caja</button>
+      <button class="btn btn-danger" style="flex:1" onclick="eliminarCaja()">Eliminar caja</button>
     </div>
   </div>
 </div>
@@ -535,9 +495,10 @@ const REDIRECT   = 'https://julianagrillco1.github.io/granjatop/';
 const AUTH_URL   = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/authorize`;
 const TOKEN_URL  = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`;
 const KG_SACO    = 25;
+const DIAS_SIN_COMIDA = 2;
 
 let msUser = null;
-let cajas = [], mermas = [], pienso = [], hueveras = [], ventas = [], trazCaja = [], trazLote = [];
+let cajas = [], mermas = [], pienso = [], hueveras = [], ventas = [], trazCaja = [], trazLote = [], temps = [];
 let modalCajaCode = null;
 
 // ════════════════════════════════════════════
@@ -570,7 +531,7 @@ async function handleRedirect(){
     const ur=await fetch('https://graph.microsoft.com/v1.0/me',{headers:{Authorization:'Bearer '+d.access_token}});
     const ud=await ur.json();
     const email=(ud.userPrincipalName||ud.mail||'').toLowerCase();
-    if(!email.endsWith('@grillco.cat')){showAuthErr('Acceso denegado. Solo cuentas @grillco.cat. Tu cuenta: '+email);return false;}
+    if(!email.endsWith('@grillco.cat')){showAuthErr('Acceso denegado. Solo @grillco.cat. Tu cuenta: '+email);return false;}
     msUser=email;
     localStorage.setItem('gt_user',email);
     window.history.replaceState({},'',REDIRECT);
@@ -601,7 +562,7 @@ async function sbPost(p,b){const r=await fetch(SB_URL+p,{method:'POST',headers:{
 async function sbRpc(fn,b){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json();}
 
 function setSyncing(on){document.getElementById('sd').className='sync-dot'+(on?' spin':'');}
-function showToast(msg,d=2600){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),d);}
+function showToast(msg,d=2800){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),d);}
 
 // ════════════════════════════════════════════
 // INIT
@@ -609,11 +570,7 @@ function showToast(msg,d=2600){const el=document.getElementById('toast');el.text
 async function init(){
   setSyncing(true);
   initDates();
-  try{
-    await loadAll();
-  }catch(e){
-    showToast('⚠ Error conectando con Supabase: '+e.message,4000);
-  }
+  try{await loadAll();}catch(e){showToast('⚠ Error: '+e.message,4000);}
   setSyncing(false);
   renderAll();
   setInterval(async()=>{
@@ -622,27 +579,31 @@ async function init(){
 }
 
 async function loadAll(){
-  [cajas, mermas, pienso, hueveras, ventas, trazCaja, trazLote] = await Promise.all([
+  const r=await Promise.all([
     sbGet('/rest/v1/cajas?select=*&estado=eq.activa&order=fecha_ingreso.asc'),
-    sbGet('/rest/v1/mermas?select=*&order=created_at.desc&limit=100'),
-    sbGet('/rest/v1/pienso?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/mermas?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/pienso?select=*&order=fecha.asc'),
     sbGet('/rest/v1/hueveras?select=*&order=created_at.desc&limit=200'),
     sbGet('/rest/v1/ventas?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/trazabilidad_caja?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/trazabilidad_lote?select=*&order=created_at.desc&limit=100'),
+    sbGet('/rest/v1/trazabilidad_caja?select=*&order=created_at.desc&limit=500'),
+    sbGet('/rest/v1/trazabilidad_lote?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/temperaturas?select=*&order=created_at.desc&limit=50'),
   ]);
+  [cajas, mermas, pienso, hueveras, ventas, trazCaja, trazLote, temps] = r;
 }
 
 function renderAll(){
   renderCajas();
   renderAvisos();
   renderSustratos();
-  renderMermas();
-  renderPienso();
-  renderHueveras();
   renderTrazCaja();
   renderTrazLote();
+  renderPienso();
+  renderTrazPienso();
+  renderHueveras();
+  renderMermas();
   renderLotes();
+  renderTemps();
   updateBadges();
   actualizarSelectorSeco();
 }
@@ -659,8 +620,8 @@ function initDates(){
   const th=document.getElementById('tp-hora');if(th)th.value=nowTime();
 }
 function diasVida(tipo){return tipo==='Reproducción'?50:36;}
-function calcColecta(fechaIngreso,tipo){
-  const d=new Date(fechaIngreso);d.setDate(d.getDate()+diasVida(tipo));return d.toISOString().split('T')[0];
+function calcColecta(fi,tipo){
+  const d=new Date(fi);d.setDate(d.getDate()+diasVida(tipo));return d.toISOString().split('T')[0];
 }
 function diasRestantes(fc){
   const hoy=new Date();hoy.setHours(0,0,0,0);
@@ -673,25 +634,12 @@ function diasVividos(fi){
 function fmtDate(d){if(!d)return'—';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`;}
 function fmtDT(ts){if(!ts)return'—';const d=new Date(ts);return d.toLocaleDateString('es',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});}
 
-function getBadgeClass(dr){
-  if(dr<0)return'b-danger';
-  if(dr===0)return'b-amber';
-  if(dr<=2)return'b-blue';
-  return'b-ok';
-}
-function getBadgeLabel(dr){
-  if(dr<0)return`🚨 ${Math.abs(dr)}d vencida`;
-  if(dr===0)return'⚡ HOY colecta';
-  if(dr<=2)return`⏰ ${dr}d — quitar comida`;
-  return`✅ ${dr}d`;
-}
+function badgeCls(dr){if(dr<0)return'b-danger';if(dr===0)return'b-amber';if(dr<=2)return'b-blue';return'b-ok';}
+function badgeLbl(dr){if(dr<0)return`🚨 ${Math.abs(dr)}d vencida`;if(dr===0)return'⚡ HOY colecta';if(dr<=2)return`⏰ ${dr}d — quitar comida`;return`✅ ${dr}d`;}
 
 function calcAvg(prefix,n){
   const vals=[];
-  for(let i=1;i<=n;i++){
-    const v=parseFloat(document.getElementById(`${prefix}-h${i}`)?.value);
-    if(!isNaN(v))vals.push(v);
-  }
+  for(let i=1;i<=n;i++){const v=parseFloat(document.getElementById(`${prefix}-h${i}`)?.value);if(!isNaN(v))vals.push(v);}
   const el=document.getElementById(`${prefix}-avg`);if(!el)return;
   if(!vals.length){el.textContent='Promedio: — %';return;}
   const avg=(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2);
@@ -730,12 +678,12 @@ function openModal(id){document.getElementById(id).classList.add('show');}
 function closeModal(id){document.getElementById(id).classList.remove('show');modalCajaCode=null;}
 
 function updateBadges(){
-  const urgentes=cajas.filter(c=>diasRestantes(c.fecha_colecta)<=2).length;
-  const sust=cajas.filter(c=>c.tipo==='Reproducción'&&diasVividos(c.fecha_ingreso)>=40).length;
+  const urg=cajas.filter(c=>diasRestantes(c.fecha_colecta)<=2).length;
+  const sus=cajas.filter(c=>c.tipo==='Reproducción'&&diasVividos(c.fecha_ingreso)>=40).length;
   const ba=document.getElementById('nbadge-avisos');
   const bs=document.getElementById('nbadge-sust');
-  if(urgentes>0){ba.textContent=urgentes;ba.style.display='inline';}else ba.style.display='none';
-  if(sust>0){bs.textContent=sust;bs.style.display='inline';}else bs.style.display='none';
+  if(urg>0){ba.textContent=urg;ba.style.display='inline';}else ba.style.display='none';
+  if(sus>0){bs.textContent=sus;bs.style.display='inline';}else bs.style.display='none';
 }
 
 // ════════════════════════════════════════════
@@ -761,6 +709,8 @@ async function registrarCaja(){
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
+
+function alertaComedero(dv){return dv===22||dv===23;}
 
 function renderCajas(){
   const lista=document.getElementById('lista-cajas');
@@ -788,7 +738,7 @@ function renderCajas(){
             <span class="code">${c.codigo}</span>
             <span class="badge b-gray" style="font-size:10px">${c.tipo}</span>
             ${sust?`<span class="badge b-amber" style="font-size:10px">🌿 Sustrato</span>`:''}
-            ${dv===22||dv===23?`<span class="badge b-blue" style="font-size:10px">🍽️ Comedero</span>`:''}
+            ${alertaComedero(dv)?`<span class="badge b-blue" style="font-size:10px">🍽️ Comedero</span>`:''}
           </div>
           <div style="font-size:11px;color:var(--ink3);margin-top:3px">${c.responsable||'—'} · Colecta: ${fmtDate(c.fecha_colecta)}</div>
         </div>
@@ -808,12 +758,12 @@ function abrirCaja(codigo){
   const dr=diasRestantes(c.fecha_colecta);
   const dv=diasVividos(c.fecha_ingreso);
   document.getElementById('mc-title').textContent='Caja '+c.codigo;
-  document.getElementById('mc-sub').innerHTML=`<span class="badge ${getBadgeClass(dr)}">${getBadgeLabel(dr)}</span>`;
+  document.getElementById('mc-sub').innerHTML=`<span class="badge ${badgeCls(dr)}">${badgeLbl(dr)}</span>`;
   document.getElementById('mc-body').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       ${mf('Tipo',c.tipo)}${mf('Responsable',c.responsable||'—')}
       ${mf('Peso ingreso',c.peso_gramos?c.peso_gramos+' g':'—')}${mf('Fecha ingreso',fmtDate(c.fecha_ingreso))}
-      ${mf('Fecha colecta',fmtDate(c.fecha_colecta))}${mf('Días vividos',dv+' días')}
+      ${mf('Fecha colecta est.',fmtDate(c.fecha_colecta))}${mf('Días vividos',dv+' días')}
       ${dv>=40&&c.tipo==='Reproducción'?mf('Sustrato',dv>=47?'🔴 URGENTE':dv>=44?'🟠 Poner ya':'🟡 Poner sustrato'):''}
     </div>`;
   openModal('modal-caja');
@@ -838,18 +788,18 @@ async function eliminarCaja(){
 // ════════════════════════════════════════════
 function renderAvisos(){
   const lista=document.getElementById('lista-avisos');
-  const urgentes=cajas.filter(c=>diasRestantes(c.fecha_colecta)<=2).sort((a,b)=>diasRestantes(a.fecha_colecta)-diasRestantes(b.fecha_colecta));
-  if(!urgentes.length){lista.innerHTML='<div class="empty">✅ Sin avisos pendientes</div>';return;}
-  lista.innerHTML=urgentes.map(c=>{
+  const urg=cajas.filter(c=>diasRestantes(c.fecha_colecta)<=2).sort((a,b)=>diasRestantes(a.fecha_colecta)-diasRestantes(b.fecha_colecta));
+  if(!urg.length){lista.innerHTML='<div class="empty">✅ Sin avisos pendientes</div>';return;}
+  lista.innerHTML=urg.map(c=>{
     const dr=diasRestantes(c.fecha_colecta);
     const cls=dr<0?'abar-d':dr===0?'abar-w':'abar-b';
     return`<div class="abar ${cls}">
       <span style="font-size:18px">${dr<0?'🚨':dr===0?'⚡':'⏰'}</span>
       <div style="flex:1">
         <div style="font-weight:700">${c.codigo} — ${c.tipo}</div>
-        <div style="font-size:11px;margin-top:2px">${getBadgeLabel(dr)} · Resp: ${c.responsable||'—'} · Colecta: ${fmtDate(c.fecha_colecta)}</div>
+        <div style="font-size:11px;margin-top:2px">${badgeLbl(dr)} · Resp: ${c.responsable||'—'} · Colecta: ${fmtDate(c.fecha_colecta)}</div>
       </div>
-      <div style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;flex-shrink:0">${Math.abs(dr)}<div style="font-size:10px;font-weight:400;color:inherit;opacity:0.7">${dr<0?'vencida':'días'}</div></div>
+      <div style="font-family:'Space Mono',monospace;font-size:20px;font-weight:700;flex-shrink:0;text-align:right">${Math.abs(dr)}<div style="font-size:10px;font-weight:400;color:inherit;opacity:0.7">${dr<0?'vencida':'días'}</div></div>
     </div>`;
   }).join('');
 }
@@ -859,12 +809,12 @@ function renderAvisos(){
 // ════════════════════════════════════════════
 function renderSustratos(){
   const lista=document.getElementById('lista-sustratos');
-  const sust=cajas.filter(c=>c.tipo==='Reproducción'&&diasVividos(c.fecha_ingreso)>=40)
+  const sus=cajas.filter(c=>c.tipo==='Reproducción'&&diasVividos(c.fecha_ingreso)>=40)
     .sort((a,b)=>diasVividos(b.fecha_ingreso)-diasVividos(a.fecha_ingreso));
-  if(!sust.length){lista.innerHTML='<div class="empty">🌿 Sin cajas de reproducción que necesiten sustrato</div>';return;}
-  lista.innerHTML=sust.map(c=>{
+  if(!sus.length){lista.innerHTML='<div class="empty">🌿 Sin cajas que necesiten sustrato</div>';return;}
+  lista.innerHTML=sus.map(c=>{
     const dv=diasVividos(c.fecha_ingreso);
-    const cls=dv>=47?'abar-d':dv>=44?'abar-w':'abar-b';
+    const cls=dv>=47?'abar-d':dv>=44?'abar-or':'abar-w';
     const msg=dv>=47?'🔴 Sustrato URGENTE':dv>=44?'🟠 Poner sustrato ya':'🟡 Poner sustrato';
     const dias=c.sustrato_dias||Array(10).fill(false);
     const grid=`<div class="sust-grid">${dias.map((done,i)=>`<div class="sday ${done?'done':''}" onclick="toggleSustrato('${c.codigo}',${i})">${40+i}</div>`).join('')}</div>`;
@@ -874,7 +824,7 @@ function renderSustratos(){
           <div style="font-weight:700">${c.codigo} — ${msg}</div>
           <div style="font-size:11px;margin-top:2px">Día ${dv} · Resp: ${c.responsable||'—'} · Colecta: ${fmtDate(c.fecha_colecta)}</div>
         </div>
-        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800">${dv}<div style="font-size:10px;font-weight:400">días</div></div>
+        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;text-align:right">${dv}<div style="font-size:10px;font-weight:400">días</div></div>
       </div>
       ${grid}
     </div>`;
@@ -903,7 +853,7 @@ function buscarCaja(){
   const c=cajas.find(x=>x.codigo===codigo);
   if(!c){el.innerHTML='<span style="color:var(--danger)">⚠ No encontrada en granja</span>';return;}
   const dr=diasRestantes(c.fecha_colecta);
-  el.innerHTML=`<span class="badge ${getBadgeClass(dr)}">${getBadgeLabel(dr)}</span> · ${c.tipo} · Colecta: ${fmtDate(c.fecha_colecta)}`;
+  el.innerHTML=`<span class="badge ${badgeCls(dr)}">${badgeLbl(dr)}</span> · ${c.tipo} · Colecta: ${fmtDate(c.fecha_colecta)}`;
 }
 
 async function confirmarHumedo(){
@@ -922,22 +872,22 @@ async function confirmarHumedo(){
     document.getElementById('oh-sacrificio').value=today();
     document.getElementById('oh-estado').innerHTML='— Escribe el código';
     document.getElementById('oh-avg').textContent='Promedio: — %';
-    await loadAll();renderAll();actualizarSelectorSeco();
-    showToast(`✓ Caja ${codigo} → Trazabilidad. Lote: ${lote}`);
+    await loadAll();renderAll();
+    showToast(`✓ Caja ${codigo} → Trazabilidad. Lote: ${lote}. Código liberado para reuso.`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
 
 function actualizarSelectorSeco(){
   const lotesConSeco=new Set(trazLote.map(l=>l.lote));
-  const lotesHumedos=[...new Set(trazCaja.map(r=>r.lote))].filter(l=>l&&!lotesConSeco.has(l));
+  const lotesHumedos=[...new Set(trazCaja.map(r=>r.lote).filter(Boolean))].filter(l=>!lotesConSeco.has(l));
   const sel=document.getElementById('os-lote');
   if(!sel)return;
   sel.innerHTML='<option value="">Seleccionar lote húmedo...</option>'+
     lotesHumedos.map(l=>{
-      const cajasDeLote=trazCaja.filter(r=>r.lote===l);
-      const totalH=cajasDeLote.reduce((a,r)=>a+(parseFloat(r.peso_humedo_kg)||0),0);
-      return`<option value="${l}">${l} — ${cajasDeLote.length} caja(s) — ${totalH.toFixed(1)} kg húmedo</option>`;
+      const cs=trazCaja.filter(r=>r.lote===l);
+      const tot=cs.reduce((a,r)=>a+(parseFloat(r.peso_humedo_kg)||0),0);
+      return`<option value="${l}">${l} — ${cs.length} caja(s) — ${tot.toFixed(1)} kg húmedo</option>`;
     }).join('');
 }
 
@@ -953,96 +903,20 @@ async function confirmarSeco(){
   try{
     const r=await sbRpc('procesar_seco',{p_lote:lote,p_peso_seco:peso,p_kg_producto:kg,p_responsable:resp||null,p_obs:obs,p_h1:h[0],p_h2:h[1],p_h3:h[2],p_h4:h[3],p_h5:h[4]});
     if(r.error){showToast('⚠ '+r.error);return;}
+    // MERMA AUTOMÁTICA
+    let mermaMsg='';
+    if(peso&&kg&&peso>0){
+      try{
+        await sbPost('/rest/v1/mermas',{lote,peso_antes_kg:peso,peso_despues_kg:kg,responsable:resp||'Sistema',observaciones:'Automático al procesar seco'});
+        mermaMsg=` · Merma: ${(peso-kg).toFixed(2)} kg`;
+      }catch(_){}
+    }
     ['os-peso','os-kg','os-obs','os-h1','os-h2','os-h3','os-h4','os-h5'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     document.getElementById('os-avg').textContent='Promedio: — %';
-    if(peso&&kg&&peso>0){try{await sbPost('/rest/v1/mermas',{lote,peso_antes_kg:peso,peso_despues_kg:kg,responsable:'Rodrigo',observaciones:'Automático al procesar seco'});}catch(_){}}
     await loadAll();renderAll();
-    showToast(`✓ Lote ${lote} procesado en seco — merma registrada automáticamente`);
+    showToast(`✓ Lote ${lote} procesado${mermaMsg}`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
-}
-
-// ════════════════════════════════════════════
-// MERMAS
-// ════════════════════════════════════════════
-function actualizarSelectorMermas(){
-  const sel=document.getElementById('me-lote');
-  if(!sel)return;
-  const cur=sel.value;
-  // Solo lotes que tienen peso_seco_kg y kg_producto en trazabilidad_lote
-  const lotesValidos=trazLote.filter(l=>l.peso_seco_kg!=null&&l.kg_producto!=null);
-  sel.innerHTML='<option value="">Seleccionar lote...</option>'+
-    lotesValidos.map(l=>{
-      const mermaKg=(parseFloat(l.peso_seco_kg)-parseFloat(l.kg_producto)).toFixed(2);
-      return`<option value="${l.lote}" ${l.lote===cur?'selected':''}>${l.lote} — Seco: ${l.peso_seco_kg}kg / Prod: ${l.kg_producto}kg / Merma: ${mermaKg}kg</option>`;
-    }).join('');
-  if(cur)mermaCargarLote();
-}
-
-function mermaCargarLote(){
-  const lote=document.getElementById('me-lote').value;
-  const info=document.getElementById('me-lote-info');
-  const btn=document.getElementById('me-btn');
-  if(!lote){info.style.display='none';btn.disabled=true;return;}
-  const tl=trazLote.find(l=>l.lote===lote);
-  if(!tl){info.style.display='none';btn.disabled=true;return;}
-  const antes=parseFloat(tl.peso_seco_kg)||0;
-  const despues=parseFloat(tl.kg_producto)||0;
-  const mermaKg=(antes-despues).toFixed(2);
-  const mermaPct=antes>0?((antes-despues)/antes*100).toFixed(1):'0';
-  document.getElementById('me-info-antes').textContent=antes.toFixed(2)+' kg';
-  document.getElementById('me-info-despues').textContent=despues.toFixed(2)+' kg';
-  document.getElementById('me-info-merma').textContent=mermaKg+' kg ('+mermaPct+'%)';
-  info.style.display='block';
-  btn.disabled=false;
-}
-
-async function registrarMerma(){
-  const lote=document.getElementById('me-lote').value;
-  const resp=document.getElementById('me-resp').value;
-  const obs=document.getElementById('me-obs').value.trim()||null;
-  if(!lote){showToast('⚠ Selecciona un lote');return;}
-  const tl=trazLote.find(l=>l.lote===lote);
-  if(!tl){showToast('⚠ Lote no encontrado');return;}
-  const antes=parseFloat(tl.peso_seco_kg)||0;
-  const despues=parseFloat(tl.kg_producto)||0;
-  if(antes<=0){showToast('⚠ El lote no tiene peso seco registrado');return;}
-  setSyncing(true);
-  try{
-    await sbPost('/rest/v1/mermas',{lote,peso_antes_kg:antes,peso_despues_kg:despues,responsable:resp||null,observaciones:obs});
-    document.getElementById('me-lote').value='';
-    document.getElementById('me-obs').value='';
-    document.getElementById('me-lote-info').style.display='none';
-    document.getElementById('me-btn').disabled=true;
-    await loadAll();renderAll();
-    showToast(`✓ Merma registrada: ${(antes-despues).toFixed(2)} kg en lote ${lote}`);
-  }catch(e){showToast('⚠ '+e.message);}
-  finally{setSyncing(false);}
-}
-
-function renderMermas(){
-  const lista=document.getElementById('lista-mermas');
-  const totalKg=mermas.reduce((a,m)=>a+(parseFloat(m.merma_kg)||0),0);
-  const avgPct=mermas.length?mermas.reduce((a,m)=>a+(parseFloat(m.merma_pct)||0),0)/mermas.length:0;
-  document.getElementById('m-total-kg').textContent=totalKg.toFixed(1);
-  document.getElementById('m-total-pct').textContent=avgPct.toFixed(1)+'%';
-  document.getElementById('m-registros').textContent=mermas.length;
-  if(!mermas.length){lista.innerHTML='<div class="empty">⚖️ Sin registros de mermas</div>';return;}
-  lista.innerHTML=mermas.map(m=>`
-    <div class="trow">
-      <div class="trow-head">
-        <span class="code">${m.lote}</span>
-        <span class="badge b-danger">−${parseFloat(m.merma_kg).toFixed(2)} kg</span>
-        <span class="badge b-warn">${parseFloat(m.merma_pct).toFixed(1)}%</span>
-        <span style="margin-left:auto;font-size:11px;color:var(--ink3)">${fmtDT(m.created_at)}</span>
-      </div>
-      <div class="trow-grid">
-        ${tf('Antes',parseFloat(m.peso_antes_kg).toFixed(2)+' kg')}
-        ${tf('Después',parseFloat(m.peso_despues_kg).toFixed(2)+' kg')}
-        ${tf('Responsable',m.responsable||'—')}
-        ${m.observaciones?tf('Notas',m.observaciones):''}
-      </div>
-    </div>`).join('');
 }
 
 // ════════════════════════════════════════════
@@ -1060,7 +934,7 @@ async function registrarPienso(){
   if(tipo==='entrada'&&!lote){showToast('⚠ Las entradas requieren lote de proveedor');return;}
   if(tipo==='salida'){
     const stock=pienso.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad_kg:a-r.cantidad_kg,0);
-    if(cantidad>stock){showToast(`⚠ Sin stock suficiente. Disponible: ${stock.toFixed(1)} kg`);return;}
+    if(cantidad>stock){showToast(`⚠ Sin stock. Disponible: ${stock.toFixed(1)} kg`);return;}
   }
   setSyncing(true);
   try{
@@ -1070,15 +944,17 @@ async function registrarPienso(){
     document.getElementById('pi-lote').value='';
     document.getElementById('pi-obs').value='';
     await loadAll();renderAll();
-    showToast(tipo==='entrada'?`✓ Entrada: ${sacos} sacos (${cantidad} kg) — lote ${lote}`:`✓ Salida: ${sacos} sacos (${cantidad} kg)`);
+    showToast(tipo==='entrada'?`✓ Entrada: ${sacos} sacos — lote ${lote}`:`✓ Salida: ${sacos} sacos`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
 
 function renderPienso(){
-  const stock=pienso.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad_kg:a-r.cantidad_kg,0);
+  // Orden cronológico ascendente para calcular el balance correctamente
+  const ord=[...pienso].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  const stock=ord.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad_kg:a-r.cantidad_kg,0);
   const sacos=Math.floor(stock/KG_SACO);
-  const salidas=pienso.filter(r=>r.tipo==='salida').reduce((a,r)=>a+r.cantidad_kg,0);
+  const salidas=ord.filter(r=>r.tipo==='salida').reduce((a,r)=>a+r.cantidad_kg,0);
   document.getElementById('pi-sacos').textContent=sacos;
   document.getElementById('pi-kg').textContent=stock.toFixed(1);
   document.getElementById('pi-salidas').textContent=salidas.toFixed(1);
@@ -1086,7 +962,7 @@ function renderPienso(){
   const lista=document.getElementById('lista-pienso');
   if(!pienso.length){lista.innerHTML='<div class="empty">🌾 Sin movimientos</div>';return;}
   let bal=0;
-  const rows=[...pienso].reverse().map(r=>{bal+=r.tipo==='entrada'?r.cantidad_kg:-r.cantidad_kg;return{...r,bal};}).reverse();
+  const rows=ord.map(r=>{bal+=r.tipo==='entrada'?r.cantidad_kg:-r.cantidad_kg;return{...r,bal};}).reverse();
   lista.innerHTML=rows.map(r=>`
     <div class="row" style="cursor:default">
       <div style="font-size:20px">${r.tipo==='entrada'?'📥':'📤'}</div>
@@ -1097,10 +973,97 @@ function renderPienso(){
         <div style="font-size:11px;color:var(--ink3)">${fmtDate(r.fecha)} · ${r.responsable||'—'}${r.observaciones?' · '+r.observaciones:''}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-family:'Space Mono',monospace;font-size:12px;color:${r.tipo==='entrada'?'var(--blue)':'var(--warn)'}">${r.tipo==='entrada'?'+':'-'}${r.sacos||Math.round(r.cantidad_kg/KG_SACO)}s / ${r.tipo==='entrada'?'+':'-'}${r.cantidad_kg.toFixed(1)}kg</div>
-        <div class="pienso-balance">${(r.bal/KG_SACO).toFixed(1)}s / ${r.bal.toFixed(1)}kg</div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;color:${r.tipo==='entrada'?'var(--blue)':'var(--warn)'}">${r.tipo==='entrada'?'+':'-'}${r.sacos||Math.round(r.cantidad_kg/KG_SACO)}s / ${r.cantidad_kg.toFixed(1)}kg</div>
+        <div class="pienso-balance">Bal: ${(r.bal/KG_SACO).toFixed(1)}s / ${r.bal.toFixed(1)}kg</div>
       </div>
     </div>`).join('');
+}
+
+// ════════════════════════════════════════════
+// TRAZABILIDAD PIENSO — LÓGICA CORRECTA
+// ════════════════════════════════════════════
+// Construye periodos: cada entrada de pienso con lote crea un periodo
+// que va desde su fecha hasta la fecha de la siguiente entrada con lote
+function buildPeriodosPienso(){
+  return [...pienso]
+    .filter(r=>r.tipo==='entrada'&&r.lote_proveedor)
+    .sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))
+    .map((e,i,arr)=>({
+      lote:e.lote_proveedor,
+      sacos:e.sacos||0,
+      cantidad:e.cantidad_kg||0,
+      fechaInicio:e.fecha,
+      fechaFin:i<arr.length-1?arr[i+1].fecha:null,
+      responsable:e.responsable||'',
+      obs:e.observaciones||''
+    }));
+}
+
+// Una caja consume pienso de un periodo si su ventana de "días comiendo"
+// solapa con el periodo. Días comiendo: desde fechaIngreso hasta
+// (fechaSacrificio || fechaColecta) - 2 días.
+function cajaConsumePienso(fi,fc,pIni,pFin,fs){
+  if(!fi||!fc)return false;
+  // Fecha de referencia: sacrificio real si existe, si no colecta estimada
+  const ref=fs||fc;
+  // Último día comiendo = ref - 2 días
+  const d=new Date(ref);d.setDate(d.getDate()-DIAS_SIN_COMIDA);
+  const ultComida=d.toISOString().split('T')[0];
+  // Si ya dejó de comer antes de que empiece este lote → no consumió
+  if(ultComida<pIni)return false;
+  // Si llegó después de que terminó este lote → no consumió
+  const fin=pFin||'9999-12-31';
+  if(fi>=fin)return false;
+  return true;
+}
+
+function renderTrazPienso(){
+  const lista=document.getElementById('lista-trazpienso');
+  if(!lista)return;
+  const periodos=buildPeriodosPienso();
+  const selLote=document.getElementById('tp-filtro-lote');
+  const inpFecha=document.getElementById('tp-filtro-fecha');
+  if(selLote){
+    const cur=selLote.value;
+    const lotes=[...new Set(periodos.map(p=>p.lote))];
+    selLote.innerHTML='<option value="">— Todos los lotes —</option>'+lotes.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');
+  }
+  if(!periodos.length){lista.innerHTML='<div class="empty">🌾 No hay entradas de pienso con lote registradas.<br>Registra una entrada en Pienso con su lote de proveedor.</div>';return;}
+  const fL=selLote?selLote.value:'';
+  const fF=inpFecha?inpFecha.value:'';
+  let visibles=[...periodos];
+  if(fL)visibles=visibles.filter(p=>p.lote===fL);
+  if(fF)visibles=visibles.filter(p=>p.fechaInicio<=fF&&(!p.fechaFin||fF<p.fechaFin));
+  visibles=visibles.reverse();
+  if(!visibles.length){lista.innerHTML='<div class="empty">🔍 Sin resultados</div>';return;}
+  const hoy=today();
+  lista.innerHTML=visibles.map(p=>{
+    // Cajas ACTIVAS que consumieron este pienso
+    const cAct=cajas.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin));
+    // Cajas PROCESADAS que consumieron este pienso (usar fecha_sacrificio real si existe)
+    const cPro=trazCaja.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin,c.fecha_sacrificio));
+    const total=cAct.length+cPro.length;
+    const isAct=!p.fechaFin;
+    const dur=Math.round(((p.fechaFin?new Date(p.fechaFin):new Date(hoy))-new Date(p.fechaInicio))/86400000);
+    const actHTML=cAct.length?`<div style="font-size:10px;color:var(--ink3);margin:4px 0;text-transform:uppercase;letter-spacing:0.5px">Cajas activas (${cAct.length})</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">${cAct.map(c=>`<span class="badge b-ok" style="font-size:11px" title="${c.tipo} · Colecta: ${fmtDate(c.fecha_colecta)}">${c.codigo}</span>`).join('')}</div>`:'';
+    const proHTML=cPro.length?`<div style="font-size:10px;color:var(--ink3);margin:4px 0;text-transform:uppercase;letter-spacing:0.5px">Cajas procesadas (${cPro.length})</div><div style="display:flex;flex-wrap:wrap;gap:4px">${cPro.map(c=>`<span class="badge b-gray" style="font-size:11px" title="Sacrificio: ${fmtDate(c.fecha_sacrificio||c.fecha_colecta)} · Lote: ${c.lote||'—'}">${c.caja_codigo}${c.lote?' → '+c.lote:''}</span>`).join('')}</div>`:'';
+    return `<div class="trow">
+      <div class="trow-head">
+        <span class="code" style="color:var(--amber)">${p.lote}</span>
+        ${isAct?'<span class="badge b-ok">ACTIVO</span>':'<span class="badge b-gray">finalizado</span>'}
+        <span class="badge b-blue">${p.sacos} sacos · ${p.cantidad.toFixed(1)} kg</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--ink3)">${fmtDate(p.fechaInicio)} → ${p.fechaFin?fmtDate(p.fechaFin):'hoy'}</span>
+      </div>
+      <div class="trow-grid" style="grid-template-columns:repeat(4,1fr)">
+        ${tf('Duración',dur+' días')}
+        ${tf('Total cajas',total)}
+        ${tf('Activas',cAct.length)}
+        ${tf('Procesadas',cPro.length)}
+      </div>
+      ${p.responsable||p.obs?`<div style="margin-top:6px;font-size:11px;color:var(--ink3)">${p.responsable?'Resp: '+p.responsable:''}${p.obs?(p.responsable?' · ':'')+'📝 '+p.obs:''}</div>`:''}
+      ${total>0?`<div style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">${actHTML}${proHTML}</div>`:'<div style="font-size:11px;color:var(--ink3);font-style:italic;margin-top:6px">Sin cajas en este periodo</div>'}
+    </div>`;
+  }).join('');
 }
 
 // ════════════════════════════════════════════
@@ -1115,7 +1078,7 @@ async function registrarHuevera(){
   if(!cantidad||cantidad<=0||!fecha){showToast('⚠ Completa cantidad y fecha');return;}
   if(tipo==='salida'){
     const stock=hueveras.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad:a-r.cantidad,0);
-    if(cantidad>stock){showToast(`⚠ Sin stock suficiente. Disponible: ${stock}`);return;}
+    if(cantidad>stock){showToast(`⚠ Sin stock. Disponible: ${stock}`);return;}
   }
   setSyncing(true);
   try{
@@ -1123,23 +1086,24 @@ async function registrarHuevera(){
     document.getElementById('hv-cantidad').value='';
     document.getElementById('hv-obs').value='';
     await loadAll();renderAll();
-    showToast(tipo==='entrada'?`✓ Entrada: ${cantidad} hueveras`:`✓ Salida: ${cantidad} hueveras`);
+    showToast(`✓ ${tipo==='entrada'?'Entrada':'Salida'}: ${cantidad} hueveras`);
   }catch(e){showToast('⚠ '+e.message);}
   finally{setSyncing(false);}
 }
 
 function renderHueveras(){
-  const stock=hueveras.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad:a-r.cantidad,0);
-  const entradas=hueveras.filter(r=>r.tipo==='entrada').reduce((a,r)=>a+r.cantidad,0);
-  const salidas=hueveras.filter(r=>r.tipo==='salida').reduce((a,r)=>a+r.cantidad,0);
+  const ord=[...hueveras].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  const stock=ord.reduce((a,r)=>r.tipo==='entrada'?a+r.cantidad:a-r.cantidad,0);
+  const ent=ord.filter(r=>r.tipo==='entrada').reduce((a,r)=>a+r.cantidad,0);
+  const sal=ord.filter(r=>r.tipo==='salida').reduce((a,r)=>a+r.cantidad,0);
   document.getElementById('hv-stock').textContent=stock;
-  document.getElementById('hv-entradas').textContent=entradas;
-  document.getElementById('hv-salidas').textContent=salidas;
+  document.getElementById('hv-entradas').textContent=ent;
+  document.getElementById('hv-salidas').textContent=sal;
   document.getElementById('hv-stock').style.color=stock<10?'var(--danger)':stock<50?'var(--warn)':'var(--ok)';
   const lista=document.getElementById('lista-hueveras');
   if(!hueveras.length){lista.innerHTML='<div class="empty">🥚 Sin movimientos</div>';return;}
   let bal=0;
-  const rows=[...hueveras].reverse().map(r=>{bal+=r.tipo==='entrada'?r.cantidad:-r.cantidad;return{...r,bal};}).reverse();
+  const rows=ord.map(r=>{bal+=r.tipo==='entrada'?r.cantidad:-r.cantidad;return{...r,bal};}).reverse();
   lista.innerHTML=rows.map(r=>`
     <div class="row" style="cursor:default">
       <div style="font-size:20px">${r.tipo==='entrada'?'📥':'📤'}</div>
@@ -1155,7 +1119,107 @@ function renderHueveras(){
 }
 
 // ════════════════════════════════════════════
-// TRAZABILIDAD
+// MERMAS (DASHBOARD AUTOMÁTICO)
+// ════════════════════════════════════════════
+function renderMermas(){
+  const lista=document.getElementById('lista-mermas');
+  const totalKg=mermas.reduce((a,m)=>a+(parseFloat(m.merma_kg)||0),0);
+  const avgPct=mermas.length?mermas.reduce((a,m)=>a+(parseFloat(m.merma_pct)||0),0)/mermas.length:0;
+  document.getElementById('m-total-kg').textContent=totalKg.toFixed(1);
+  document.getElementById('m-total-pct').textContent=avgPct.toFixed(1)+'%';
+  document.getElementById('m-registros').textContent=mermas.length;
+  if(!mermas.length){lista.innerHTML='<div class="empty">⚖️ Sin mermas registradas. Se registran automáticamente al procesar el seco en Obrador.</div>';return;}
+  lista.innerHTML=mermas.map(m=>`
+    <div class="trow">
+      <div class="trow-head">
+        <span class="code">${m.lote}</span>
+        <span class="badge b-danger">−${parseFloat(m.merma_kg).toFixed(2)} kg</span>
+        <span class="badge b-warn">${parseFloat(m.merma_pct).toFixed(1)}%</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--ink3)">${fmtDT(m.created_at)}</span>
+      </div>
+      <div class="trow-grid">
+        ${tf('Antes tamiz',parseFloat(m.peso_antes_kg).toFixed(2)+' kg')}
+        ${tf('Después tamiz',parseFloat(m.peso_despues_kg).toFixed(2)+' kg')}
+        ${tf('Responsable',m.responsable||'—')}
+        ${m.observaciones?tf('Notas',m.observaciones):''}
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════════
+// LOTES
+// ════════════════════════════════════════════
+function buildLotesStock(){
+  const map={};
+  trazLote.forEach(r=>{
+    if(!r.lote)return;
+    const kg=parseFloat(r.kg_producto)||0;
+    if(!map[r.lote])map[r.lote]={lote:r.lote,producido:0,vendido:0,numCajas:r.num_cajas||0,fecha:r.created_at};
+    map[r.lote].producido+=kg;
+  });
+  ventas.forEach(v=>{if(map[v.lote])map[v.lote].vendido+=v.cantidad_kg;});
+  return Object.values(map).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+}
+
+async function registrarVenta(){
+  const lote=document.getElementById('vt-lote').value;
+  const cantidad=parseFloat(document.getElementById('vt-cantidad').value)||0;
+  const fecha=document.getElementById('vt-fecha').value;
+  const motivo=document.getElementById('vt-motivo').value;
+  const obs=document.getElementById('vt-obs').value.trim()||null;
+  if(!lote||!cantidad||!fecha){showToast('⚠ Completa lote, cantidad y fecha');return;}
+  const lotes=buildLotesStock();
+  const ls=lotes.find(l=>l.lote===lote);
+  const stock=ls?ls.producido-ls.vendido:0;
+  if(cantidad>stock){showToast(`⚠ Sin stock. Disponible: ${stock.toFixed(1)} kg`);return;}
+  setSyncing(true);
+  try{
+    await sbPost('/rest/v1/ventas',{lote,cantidad_kg:cantidad,fecha,motivo,observaciones:obs});
+    document.getElementById('vt-cantidad').value='';
+    document.getElementById('vt-obs').value='';
+    await loadAll();renderAll();
+    showToast(`✓ ${motivo}: ${cantidad} kg lote ${lote}`);
+  }catch(e){showToast('⚠ '+e.message);}
+  finally{setSyncing(false);}
+}
+
+function renderLotes(){
+  const lotes=buildLotesStock();
+  const stockTot=lotes.reduce((a,l)=>a+(l.producido-l.vendido),0);
+  document.getElementById('lo-stock').textContent=stockTot.toFixed(1);
+  document.getElementById('lo-count').textContent=lotes.length;
+  const sel=document.getElementById('vt-lote');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">Seleccionar lote...</option>'+
+    lotes.map(l=>{const s=l.producido-l.vendido;return`<option value="${l.lote}" ${l.lote===cur?'selected':''}>${l.lote} — ${s.toFixed(1)} kg</option>`;}).join('');
+  const lista=document.getElementById('lista-lotes');
+  if(!lotes.length){lista.innerHTML='<div class="empty">📦 Los lotes aparecen al procesar en Obrador seco</div>';return;}
+  lista.innerHTML=lotes.map(l=>{
+    const s=l.producido-l.vendido;
+    const pct=l.producido>0?Math.max(s/l.producido*100,2):2;
+    const vL=ventas.filter(v=>v.lote===l.lote);
+    return`<div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div><div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--blue)">${l.lote}</div>
+          <div style="font-size:11px;color:var(--ink3)">${l.numCajas} caja(s) · ${fmtDT(l.fecha)}</div></div>
+        <div style="text-align:right">
+          <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:${s<=0?'var(--ink3)':'var(--ok)'}">${s.toFixed(1)}</div>
+          <div style="font-size:10px;color:var(--ink3)">kg disponibles</div>
+        </div>
+      </div>
+      <div style="background:var(--paper3);border-radius:4px;height:5px;margin-bottom:10px"><div style="background:${s<=0?'var(--ink3)':pct>50?'var(--ok)':'var(--warn)'};height:5px;border-radius:4px;width:${pct}%"></div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px;text-align:center">
+        <div><div style="color:var(--ink3)">Producido</div><div style="font-weight:600;color:var(--blue)">${l.producido.toFixed(1)} kg</div></div>
+        <div><div style="color:var(--ink3)">Salidas</div><div style="font-weight:600;color:var(--warn)">${l.vendido.toFixed(1)} kg</div></div>
+        <div><div style="color:var(--ink3)">Stock</div><div style="font-weight:600;color:${s<=0?'var(--ink3)':'var(--ok)'}">${s.toFixed(1)} kg</div></div>
+      </div>
+      ${vL.length?`<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px">${vL.map(v=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--line)"><span style="color:var(--ink3)">${v.motivo} · ${fmtDate(v.fecha)}${v.observaciones?' · '+v.observaciones:''}</span><span style="color:var(--warn);font-weight:600">-${v.cantidad_kg.toFixed(1)} kg</span></div>`).join('')}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════
+// TRAZABILIDAD (CAJA + LOTE)
 // ════════════════════════════════════════════
 function tf(l,v){return`<div class="tfield"><div class="tfield-lbl">${l}</div><div class="tfield-val">${v}</div></div>`;}
 
@@ -1204,85 +1268,6 @@ function renderTrazLote(){
 }
 
 // ════════════════════════════════════════════
-// LOTES
-// ════════════════════════════════════════════
-function buildLotesStock(){
-  const map={};
-  trazLote.forEach(r=>{
-    if(!r.lote)return;
-    const kg=parseFloat(r.kg_producto)||0;
-    if(!map[r.lote])map[r.lote]={lote:r.lote,producido:0,vendido:0,numCajas:r.num_cajas||0,fecha:r.created_at};
-    map[r.lote].producido+=kg;
-  });
-  ventas.forEach(v=>{if(map[v.lote])map[v.lote].vendido+=v.cantidad_kg;});
-  return Object.values(map).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
-}
-
-async function registrarVenta(){
-  const lote=document.getElementById('vt-lote').value;
-  const cantidad=parseFloat(document.getElementById('vt-cantidad').value)||0;
-  const fecha=document.getElementById('vt-fecha').value;
-  const motivo=document.getElementById('vt-motivo').value;
-  const obs=document.getElementById('vt-obs').value.trim()||null;
-  if(!lote||!cantidad||!fecha){showToast('⚠ Completa lote, cantidad y fecha');return;}
-  const lotes=buildLotesStock();
-  const ls=lotes.find(l=>l.lote===lote);
-  const stock=ls?ls.producido-ls.vendido:0;
-  if(cantidad>stock){showToast(`⚠ Sin stock en lote ${lote}. Disponible: ${stock.toFixed(1)} kg`);return;}
-  setSyncing(true);
-  try{
-    await sbPost('/rest/v1/ventas',{lote,cantidad_kg:cantidad,fecha,motivo,observaciones:obs});
-    document.getElementById('vt-cantidad').value='';
-    document.getElementById('vt-obs').value='';
-    await loadAll();renderAll();
-    showToast(`✓ ${motivo}: ${cantidad} kg lote ${lote}`);
-  }catch(e){showToast('⚠ '+e.message);}
-  finally{setSyncing(false);}
-}
-
-function renderLotes(){
-  const lotes=buildLotesStock();
-  const stockTot=lotes.reduce((a,l)=>a+(l.producido-l.vendido),0);
-  document.getElementById('lo-stock').textContent=stockTot.toFixed(1);
-  document.getElementById('lo-count').textContent=lotes.length;
-  const sel=document.getElementById('vt-lote');
-  const cur=sel.value;
-  sel.innerHTML='<option value="">Seleccionar lote...</option>'+
-    lotes.map(l=>{const s=l.producido-l.vendido;return`<option value="${l.lote}" ${l.lote===cur?'selected':''}>${l.lote} — ${s.toFixed(1)} kg</option>`;}).join('');
-  const lista=document.getElementById('lista-lotes');
-  if(!lotes.length){lista.innerHTML='<div class="empty">📦 Los lotes aparecen al procesar en Obrador seco</div>';return;}
-  lista.innerHTML=lotes.map(l=>{
-    const s=l.producido-l.vendido;
-    const pct=l.producido>0?Math.max(s/l.producido*100,2):2;
-    const ventsLote=ventas.filter(v=>v.lote===l.lote);
-    return`<div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-        <div><div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--blue)">${l.lote}</div>
-          <div style="font-size:11px;color:var(--ink3)">${l.numCajas} caja(s) · ${fmtDT(l.fecha)}</div></div>
-        <div style="text-align:right">
-          <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:${s<=0?'var(--ink3)':'var(--ok)'}">${s.toFixed(1)}</div>
-          <div style="font-size:10px;color:var(--ink3)">kg disponibles</div>
-        </div>
-      </div>
-      <div style="background:var(--paper3);border-radius:4px;height:5px;margin-bottom:10px">
-        <div style="background:${s<=0?'var(--ink3)':pct>50?'var(--ok)':'var(--warn)'};height:5px;border-radius:4px;width:${pct}%;transition:width 0.4s"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px;text-align:center">
-        <div><div style="color:var(--ink3)">Producido</div><div style="font-weight:600;color:var(--blue)">${l.producido.toFixed(1)} kg</div></div>
-        <div><div style="color:var(--ink3)">Salidas</div><div style="font-weight:600;color:var(--warn)">${l.vendido.toFixed(1)} kg</div></div>
-        <div><div style="color:var(--ink3)">Stock</div><div style="font-weight:600;color:${s<=0?'var(--ink3)':'var(--ok)'}">${s.toFixed(1)} kg</div></div>
-      </div>
-      ${ventsLote.length?`<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:8px">
-        ${ventsLote.map(v=>`<div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--line)">
-          <span style="color:var(--ink3)">${v.motivo} · ${fmtDate(v.fecha)}${v.observaciones?' · '+v.observaciones:''}</span>
-          <span style="color:var(--warn);font-weight:600">-${v.cantidad_kg.toFixed(1)} kg</span>
-        </div>`).join('')}
-      </div>`:''}
-    </div>`;
-  }).join('');
-}
-
-// ════════════════════════════════════════════
 // TEMPERATURAS
 // ════════════════════════════════════════════
 async function registrarTemp(){
@@ -1306,35 +1291,8 @@ async function registrarTemp(){
 
 function renderTemps(){
   const lista=document.getElementById('lista-temps');
-  const temps=cajas.length?[]:[];// se carga via loadAll
-  if(!window._temps||!window._temps.length){
-    sbGet('/rest/v1/temperaturas?select=*&order=created_at.desc&limit=50').then(data=>{
-      window._temps=data;_renderTemps(data);
-    });
-    return;
-  }
-  _renderTemps(window._temps);
-}
-
-// Adjuntamos temperaturas al loadAll
-const _origLoadAll=loadAll;
-async function loadAll(){
-  [cajas, mermas, pienso, hueveras, ventas, trazCaja, trazLote, window._temps] = await Promise.all([
-    sbGet('/rest/v1/cajas?select=*&estado=eq.activa&order=fecha_ingreso.asc'),
-    sbGet('/rest/v1/mermas?select=*&order=created_at.desc&limit=100'),
-    sbGet('/rest/v1/pienso?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/hueveras?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/ventas?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/trazabilidad_caja?select=*&order=created_at.desc&limit=200'),
-    sbGet('/rest/v1/trazabilidad_lote?select=*&order=created_at.desc&limit=100'),
-    sbGet('/rest/v1/temperaturas?select=*&order=created_at.desc&limit=50'),
-  ]);
-}
-
-function _renderTemps(data){
-  const lista=document.getElementById('lista-temps');
-  if(!data||!data.length){lista.innerHTML='<div class="empty">🌡️ Sin registros</div>';return;}
-  lista.innerHTML=data.map(r=>`
+  if(!temps.length){lista.innerHTML='<div class="empty">🌡️ Sin registros</div>';return;}
+  lista.innerHTML=temps.map(r=>`
     <div class="trow">
       <div class="trow-head">
         <span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--blue)">${fmtDate(r.fecha)}</span>
@@ -1348,87 +1306,6 @@ function _renderTemps(data){
         ${tf('H. incubación',r.hum_incubacion!=null?r.hum_incubacion+'%':'—')}
       </div>
     </div>`).join('');
-}
-
-// Sobrescribir renderAll para incluir temps
-function renderAll(){
-  renderCajas();
-  renderAvisos();
-  renderSustratos();
-  renderMermas();
-  renderPienso();
-  renderHueveras();
-  renderTrazCaja();
-  renderTrazLote();
-  renderLotes();
-  _renderTemps(window._temps||[]);
-  updateBadges();
-  actualizarSelectorSeco();
-  actualizarSelectorMermas();
-  renderTrazPienso();
-}
-
-
-// ════════════════════════════════════════════
-// TRAZABILIDAD PIENSO
-// ════════════════════════════════════════════
-const DIAS_SIN_COMIDA = 2;
-
-function buildPeriodosPienso(){
-  return [...pienso]
-    .filter(r=>r.tipo==='entrada'&&r.lote_proveedor)
-    .sort((a,b)=>new Date(a.fecha)-new Date(b.fecha))
-    .map((e,i,arr)=>({
-      lote:e.lote_proveedor, sacos:e.sacos||0, cantidad:e.cantidad_kg||0,
-      fechaInicio:e.fecha, fechaFin:i<arr.length-1?arr[i+1].fecha:null,
-      responsable:e.responsable||'', obs:e.observaciones||''
-    }));
-}
-
-function ultimoDiaComiendo(fechaRef){
-  const d=new Date(fechaRef);d.setDate(d.getDate()-DIAS_SIN_COMIDA);
-  return d.toISOString().split('T')[0];
-}
-
-function cajaConsumePienso(fi,fc,pIni,pFin,fs){
-  if(!fi||!fc)return false;
-  const ref=fs||fc;
-  const ult=ultimoDiaComiendo(ref);
-  if(ult<fi)return false;
-  const fin=pFin||'9999-12-31';
-  return fi<=fin&&pIni<=ult;
-}
-
-function renderTrazPienso(){
-  const lista=document.getElementById('lista-trazpienso');
-  if(!lista)return;
-  const periodos=buildPeriodosPienso();
-  const selLote=document.getElementById('tp-filtro-lote');
-  const inpFecha=document.getElementById('tp-filtro-fecha');
-  if(selLote){
-    const cur=selLote.value;
-    const lotes=[...new Set(periodos.map(p=>p.lote))];
-    selLote.innerHTML='<option value="">— Todos los lotes —</option>'+lotes.map(l=>`<option value="${l}" ${l===cur?'selected':''}>${l}</option>`).join('');
-  }
-  if(!periodos.length){lista.innerHTML='<div class="empty">🌾 No hay entradas de pienso con lote registradas</div>';return;}
-  const filtroLote=selLote?selLote.value:'';
-  const filtroFecha=inpFecha?inpFecha.value:'';
-  let visibles=[...periodos];
-  if(filtroLote)visibles=visibles.filter(p=>p.lote===filtroLote);
-  if(filtroFecha)visibles=visibles.filter(p=>p.fechaInicio<=filtroFecha&&(!p.fechaFin||filtroFecha<p.fechaFin));
-  visibles=visibles.reverse();
-  if(!visibles.length){lista.innerHTML='<div class="empty">🔍 Sin resultados</div>';return;}
-  const hoy=new Date().toISOString().split('T')[0];
-  lista.innerHTML=visibles.map(p=>{
-    const cajasAct=cajas.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin));
-    const cajasPro=trazCaja.filter(c=>cajaConsumePienso(c.fecha_ingreso,c.fecha_colecta,p.fechaInicio,p.fechaFin,c.fecha_sacrificio));
-    const total=cajasAct.length+cajasPro.length;
-    const isActivo=!p.fechaFin;
-    const dur=Math.round(((p.fechaFin?new Date(p.fechaFin):new Date(hoy))-new Date(p.fechaInicio))/86400000);
-    const actHTML=cajasAct.length?'<div style="font-size:10px;color:var(--ink3);margin-bottom:4px;text-transform:uppercase">Cajas activas</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px">'+cajasAct.map(c=>'<span class="badge b-ok" style="font-size:11px">'+c.codigo+'</span>').join('')+'</div>':'';
-    const proHTML=cajasPro.length?'<div style="font-size:10px;color:var(--ink3);margin-bottom:4px;text-transform:uppercase">Cajas procesadas</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+cajasPro.map(c=>'<span class="badge b-gray" style="font-size:11px">'+c.caja_codigo+(c.lote?' → '+c.lote:'')+'</span>').join('')+'</div>':'';
-    return '<div class="trow"><div class="trow-head"><span class="code" style="color:var(--amber)">'+p.lote+'</span>'+(isActivo?'<span class="badge b-ok">ACTIVO</span>':'<span class="badge b-gray">finalizado</span>')+'<span class="badge b-blue">'+p.sacos+' sacos · '+p.cantidad.toFixed(1)+' kg</span><span style="margin-left:auto;font-size:11px;color:var(--ink3)">'+fmtDate(p.fechaInicio)+' → '+(p.fechaFin?fmtDate(p.fechaFin):'hoy')+'</span></div><div class="trow-grid" style="grid-template-columns:repeat(4,1fr)">'+tf('Duración',dur+' días')+tf('Total cajas',total)+tf('Activas',cajasAct.length)+tf('Procesadas',cajasPro.length)+'</div>'+(total>0?'<div style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">'+actHTML+proHTML+'</div>':'<div style="font-size:11px;color:var(--ink3);font-style:italic;margin-top:6px">Sin cajas en este periodo</div>')+'</div>';
-  }).join('');
 }
 
 // ════════════════════════════════════════════
