@@ -495,7 +495,9 @@ const REDIRECT   = 'https://julianagrillco1.github.io/granjatop/';
 const AUTH_URL   = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/authorize`;
 const TOKEN_URL  = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`;
 const KG_SACO    = 25;
-const DIAS_SIN_COMIDA = 2;
+// Días que NO come antes del sacrificio:
+// Si sacrificio = día X, entonces día X-1 y X-2 no come, último día comiendo = X-3
+const DIAS_SIN_COMIDA = 3;
 
 let msUser = null;
 let cajas = [], mermas = [], pienso = [], hueveras = [], ventas = [], trazCaja = [], trazLote = [], temps = [];
@@ -999,21 +1001,20 @@ function buildPeriodosPienso(){
     }));
 }
 
-// Una caja consume pienso de un periodo si su ventana de "días comiendo"
-// solapa con el periodo. Días comiendo: desde fechaIngreso hasta
-// (fechaSacrificio || fechaColecta) - 2 días.
+// Una caja consume pienso de un periodo si:
+// - Llegó ANTES de que terminara este lote (fechaIngreso < fechaFinLote)
+// - Su último día comiendo >= fechaInicioLote
+// Último día comiendo = fechaSacrificio - 3 días
+//   (día sacrificio: se mata, no come / 2 días antes: sin comida / día -3: último que comió)
 function cajaConsumePienso(fi,fc,pIni,pFin,fs){
   if(!fi||!fc)return false;
-  // Fecha de referencia: sacrificio real si existe, si no colecta estimada
   const ref=fs||fc;
-  // Último día comiendo = ref - 2 días
   const d=new Date(ref);d.setDate(d.getDate()-DIAS_SIN_COMIDA);
   const ultComida=d.toISOString().split('T')[0];
-  // Si ya dejó de comer antes de que empiece este lote → no consumió
+  // La caja debe seguir comiendo cuando empezó este lote (o después)
   if(ultComida<pIni)return false;
-  // Si llegó después de que terminó este lote → no consumió
-  const fin=pFin||'9999-12-31';
-  if(fi>=fin)return false;
+  // La caja debe haber llegado antes de que terminara este lote
+  if(pFin&&fi>=pFin)return false;
   return true;
 }
 
