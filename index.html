@@ -495,7 +495,15 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;m
 // ════════════════════════════════════════════
 const SB_URL = 'https://ctjbngqtsjaixaebyfvk.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0amJuZ3F0c2phaXhhZWJ5ZnZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNzI1MjYsImV4cCI6MjA5Njc0ODUyNn0.zz_97nioCgwZPfl5mIx4jY61j_HIZJ-ZWl912pKilpg';
-const H = {'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY};
+// Cabeceras dinámicas: incluyen email del usuario para que Supabase verifique permisos
+function buildHeaders(){
+  return {
+    'Content-Type':'application/json',
+    'apikey':SB_KEY,
+    'Authorization':'Bearer '+SB_KEY,
+    'x-user-email': msUser || localStorage.getItem('gt_user') || ''
+  };
+}
 
 const CLIENT_ID  = '8f4d2fa1-1ad0-452f-b529-f00b4136cdc1';
 const TENANT_ID  = '384af78d-5f14-4ef9-a1a9-67f7f34518ca';
@@ -567,9 +575,9 @@ function logout(){
 // ════════════════════════════════════════════
 // SUPABASE API
 // ════════════════════════════════════════════
-async function sbGet(p){const r=await fetch(SB_URL+p,{headers:{...H,'Cache-Control':'no-cache'}});if(!r.ok)throw new Error(await r.text());return r.json();}
-async function sbPost(p,b){const r=await fetch(SB_URL+p,{method:'POST',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json();}
-async function sbRpc(fn,b){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json();}
+async function sbGet(p){const r=await fetch(SB_URL+p,{headers:{...buildHeaders(),'Cache-Control':'no-cache'}});if(!r.ok)throw new Error(await r.text());return r.json();}
+async function sbPost(p,b){const r=await fetch(SB_URL+p,{method:'POST',headers:{...buildHeaders(),'Prefer':'return=representation'},body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json();}
+async function sbRpc(fn,b){const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:buildHeaders(),body:JSON.stringify(b)});if(!r.ok)throw new Error(await r.text());return r.json();}
 
 function setSyncing(on){document.getElementById('sd').className='sync-dot'+(on?' spin':'');}
 function showToast(msg,d=2800){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),d);}
