@@ -691,6 +691,22 @@ function diasVividos(fi){
   const hoy=new Date();hoy.setHours(0,0,0,0);
   return Math.round((hoy-new Date(fi))/86400000);
 }
+  function parseFechaLocal(fecha){
+  if(!fecha)return null;
+  const f=String(fecha).split('T')[0];
+  const [y,m,d]=f.split('-').map(Number);
+  if(!y||!m||!d)return null;
+  const dt=new Date(y,m-1,d);
+  dt.setHours(0,0,0,0);
+  return dt;
+}
+
+function diasVividosCongelados(fechaIngreso,fechaColecta,fechaSacrificio){
+  const ini=parseFechaLocal(fechaIngreso);
+  const fin=parseFechaLocal(fechaSacrificio||fechaColecta);
+  if(!ini||!fin)return null;
+  return Math.max(0,Math.round((fin-ini)/86400000));
+}
 function fmtDate(d){if(!d)return'—';const[y,m,dd]=d.split('-');return`${dd}/${m}/${y}`;}
 function fmtDT(ts){if(!ts)return'—';const d=new Date(ts);return d.toLocaleDateString('es',{day:'2-digit',month:'2-digit'})+' '+d.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});}
 
@@ -1424,7 +1440,7 @@ function renderTrazCaja(){
       <div class="trow-grid">
         ${tf('Ingreso',fmtDate(r.fecha_ingreso))}
         ${tf('Colecta est.',fmtDate(r.fecha_colecta))}
-        ${tf('Días vividos',r.dias_vividos!=null?r.dias_vividos+' d':'—')}
+        ${tf('Días vividos',diasVividosCongelados(r.fecha_ingreso,r.fecha_colecta,r.fecha_sacrificio)!=null?diasVividosCongelados(r.fecha_ingreso,r.fecha_colecta,r.fecha_sacrificio)+' d':'—')}
         ${tf('Peso húmedo',r.peso_humedo_kg!=null?r.peso_humedo_kg+' kg':'—')}
         ${tf('Hum. prom.',r.promedio_humedad_humedo!=null?r.promedio_humedad_humedo+'%':'—')}
         ${tf('Resp. obrador',r.responsable_obr||'—')}
