@@ -639,14 +639,14 @@ async function init(){
 async function loadAll(){
   const r=await Promise.all([
     sbGet('/rest/v1/cajas?select=*&estado=eq.activa&order=fecha_ingreso.asc'),
-    sbGet('/rest/v1/mermas?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/pienso?select=*&order=fecha.desc&limit=75'),
-    sbGet('/rest/v1/hueveras?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/ventas?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/trazabilidad_caja?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/trazabilidad_lote?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/temperaturas?select=*&order=created_at.desc&limit=75'),
-    sbGet('/rest/v1/frass?select=*&order=created_at.desc&limit=75'),
+    sbGet('/rest/v1/mermas?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/pienso?select=*&order=fecha.asc'),
+    sbGet('/rest/v1/hueveras?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/ventas?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/trazabilidad_caja?select=*&order=created_at.desc&limit=500'),
+    sbGet('/rest/v1/trazabilidad_lote?select=*&order=created_at.desc&limit=200'),
+    sbGet('/rest/v1/temperaturas?select=*&order=created_at.desc&limit=50'),
+    sbGet('/rest/v1/frass?select=*&order=created_at.desc&limit=500'),
   ]);
   [cajas, mermas, pienso, hueveras, ventas, trazCaja, trazLote, temps, frass] = r;
 }
@@ -1094,7 +1094,6 @@ function renderTrazPienso(){
   if(fL)visibles=visibles.filter(p=>p.lote===fL);
   if(fF)visibles=visibles.filter(p=>p.fechaInicio<=fF&&(!p.fechaFin||fF<p.fechaFin));
   visibles=visibles.reverse();
-if(!fL && !fF) visibles=visibles.slice(0,3);
   if(!visibles.length){lista.innerHTML='<div class="empty">🔍 Sin resultados</div>';return;}
   const hoy=today();
   lista.innerHTML=visibles.map(p=>{
@@ -1413,7 +1412,9 @@ function tf(l,v){return`<div class="tfield"><div class="tfield-lbl">${l}</div><d
 function renderTrazCaja(){
   const lista=document.getElementById('lista-traz-caja');
   if(!trazCaja.length){lista.innerHTML='<div class="empty">📋 Sin registros húmedos</div>';return;}
-  lista.innerHTML=trazCaja.map(r=>`
+  const visibles=trazCaja.slice(0,50);
+  const msg=trazCaja.length>50?`<div class="abar abar-b" style="font-size:12px">Mostrando 50 de ${trazCaja.length} registros. Todos guardados en Supabase y Power BI.</div>`:'';
+  lista.innerHTML=msg+visibles.map(r=>`
     <div class="trow">
       <div class="trow-head">
         <span class="code">${r.caja_codigo}</span>
@@ -1436,7 +1437,9 @@ function renderTrazCaja(){
 function renderTrazLote(){
   const lista=document.getElementById('lista-traz-lote');
   if(!trazLote.length){lista.innerHTML='<div class="empty">📦 Sin lotes procesados en seco</div>';return;}
-  lista.innerHTML=trazLote.map(r=>`
+  const visiblesL=trazLote.slice(0,50);
+  const msgL=trazLote.length>50?`<div class="abar abar-b" style="font-size:12px">Mostrando 50 de ${trazLote.length} registros.</div>`:'';
+  lista.innerHTML=msgL+visiblesL.map(r=>`
     <div class="trow">
       <div class="trow-head">
         <span class="code" style="color:var(--amber)">${r.lote}</span>
